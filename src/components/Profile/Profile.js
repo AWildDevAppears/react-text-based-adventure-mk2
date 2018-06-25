@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import StatusBar from './StatusBar';
+import StatusBar from '../StatusBar/StatusBar';
 
 import './profile.css';
 
