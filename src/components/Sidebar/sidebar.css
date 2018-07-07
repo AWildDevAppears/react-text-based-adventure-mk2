@@ -1,0 +1,6 @@
+.sidebar {
+    background-color: #ccc;
+    display: grid;
+    grid-template-rows: 1fr 200px;
+    height: 100vh;
+}
