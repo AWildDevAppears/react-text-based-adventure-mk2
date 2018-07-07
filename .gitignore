@@ -3,6 +3,9 @@
 # dependencies
 /node_modules
 
+# Config
+src/config.js
+
 # testing
 /coverage
 
