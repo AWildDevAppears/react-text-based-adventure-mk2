@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import APIService from '../../services/APIService';
 
@@ -19,43 +19,36 @@ export default class Map extends Component {
 
     state = { ...Map.baseState }
 
+    // TODO: Consider removing the names appearing in the sidebar
     render() {
         return (
             <div className="map">
                 <div className="map__segment" data-target={ this.state.northwest.id } onClick={this.moveLocation} tabIndex="1">
-                    <span className="map__segment__name">North west</span>
-                    { this.state.northwest.name }
+                    { this.displayLocation(this.state.northwest, "North west") }
                 </div>
                 <div className="map__segment" data-target={ this.state.north.id } onClick={this.moveLocation} tabIndex="1">
-                    <span className="map__segment__name">North</span>
-                    { this.state.north.name }
+                    { this.displayLocation(this.state.north, "North") }
                 </div>
                 <div className="map__segment" data-target={ this.state.northeast.id } onClick={this.moveLocation} tabIndex="1">
-                    <span className="map__segment__name">North east</span>
-                    { this.state.northeast.name }
+                    { this.displayLocation(this.state.northeast, "North east") }
                 </div>
                 <div className="map__segment" data-target={ this.state.west.id } onClick={this.moveLocation} tabIndex="1">
-                    <span className="map__segment__name">West</span>
-                    { this.state.west.name }
+                    { this.displayLocation(this.state.west, "West") }
                 </div>
                 <div className="map__segment">
                     { this.state.here.name }
                 </div>
                 <div className="map__segment" data-target={ this.state.east.id } onClick={this.moveLocation} tabIndex="1">
-                    <span className="map__segment__name">East</span>
-                    { this.state.east.name }
+                    { this.displayLocation(this.state.east, "East") }
                 </div>
                 <div className="map__segment" data-target={ this.state.southwest.id } onClick={this.moveLocation} tabIndex="1">
-                    <span className="map__segment__name">South west</span>
-                    { this.state.southwest.name }
+                    { this.displayLocation(this.state.southwest, "South West") }
                 </div>
                 <div className="map__segment" data-target={ this.state.south.id } onClick={this.moveLocation} tabIndex="1">
-                    <span className="map__segment__name">South</span>
-                    { this.state.south.name }
+                    { this.displayLocation(this.state.south, "South") }
                 </div>
                 <div className="map__segment" data-target={ this.state.southeast.id } onClick={this.moveLocation} tabIndex="1">
-                    <span className="map__segment__name">South east</span>
-                    { this.state.southeast.name }
+                    { this.displayLocation(this.state.southeast, "South East") }
                 </div>
             </div>
         )
@@ -154,5 +147,19 @@ export default class Map extends Component {
             this.props.moveTo(id);
         }
 
+    }
+
+    displayLocation = (location, compassDirection)  => {
+        console.log(location);
+        if (!location.name || location.name === location.id) {
+            return '';
+        }
+
+        return (
+            <Fragment>
+                    <span className="map__segment__name">{ compassDirection }</span>
+                    { location.name }
+            </Fragment>
+        );
     }
 }
