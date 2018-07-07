@@ -7,12 +7,15 @@ import Map from '../Map/Map';
 
 import './sidebar.css';
 
-export class Sidebar extends Component {
+export default class Sidebar extends Component {
     render() {
         return (
         <aside className="sidebar">
-            <Profile for={ new Character() }  />
-            <Map />
+            <Profile for={ this.props.player }  />
+            <Map
+                location={ this.props.location }
+                moveTo={ this.props.moveTo }
+            />
         </aside>
         );
     }
