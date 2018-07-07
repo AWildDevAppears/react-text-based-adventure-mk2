@@ -1,0 +1,14 @@
+.map {
+    background-color: greenyellow;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.map__segment {
+    padding: 15px;
+}
+
+.map__segment__name {
+    display: block;
+}
