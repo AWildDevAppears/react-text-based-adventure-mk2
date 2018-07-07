@@ -15,7 +15,7 @@ export default class Profile extends Component {
     render() {
         return (
             <div
-                className="status-bar"
+                className={ 'status-bar ' + this.props.modifier }
                 style={{ backgroundColor: this.props.backgroundColor }}
             >
                 <div
@@ -25,6 +25,7 @@ export default class Profile extends Component {
                         width: this.state.percentageFull,
                     }}
                 >
+                    { this.props.now }
                 </div>
             </div>
         );
