@@ -15,6 +15,8 @@ export default class Profile extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
+        if (!props.for) return state;
+
         state.name = props.for.name;
         state.imgPath = props.for.image;
         state.health = props.for.health;
