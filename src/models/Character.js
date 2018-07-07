@@ -14,12 +14,6 @@ export default class Character extends Pawn {
         weapon: undefined,
     }
 
-    healthMax = 100;
-    healh = 100;
-
-    staminaMax = 50;
-    stamina = 50;
-
     // inventory
     inventory = [];
     maxItems = 0;

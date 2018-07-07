@@ -7,8 +7,8 @@ export default class Pawn {
     healthMax = 100;
 
     // stamina
-    stamina = 40;
-    staminaMax = 60;
+    stamina = 50;
+    staminaMax = 50;
 
     get name() {
         return '';
