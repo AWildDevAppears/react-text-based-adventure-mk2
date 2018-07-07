@@ -1,6 +1,9 @@
 .status-bar {
     margin: 15px 0;
+    color: #fff;
+    text-align: end;
 }
 .status-bar__inner {
-    height: 15px;
+    padding: 2px 15px;
+    height: 20px;
 }

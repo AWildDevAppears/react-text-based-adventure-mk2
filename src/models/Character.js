@@ -2,9 +2,8 @@ import Pawn from "./Pawn";
 
 export default class Character extends Pawn {
     // name
-    forename = '';
-    surname = '';
-    title = '';
+    forename = 'Bill';
+    surname = 'Clinton';
 
     equipment = {
         head: undefined,
@@ -15,6 +14,12 @@ export default class Character extends Pawn {
         weapon: undefined,
     }
 
+    healthMax = 100;
+    healh = 100;
+
+    staminaMax = 50;
+    stamina = 50;
+
     // inventory
     inventory = [];
     maxItems = 0;
@@ -22,7 +27,7 @@ export default class Character extends Pawn {
     money = 0;
 
     get name() {
-        return `${this.title} ${this.forename} ${this.surname}`;
+        return `${this.forename} ${this.surname}`;
     }
 
     get damage() {
