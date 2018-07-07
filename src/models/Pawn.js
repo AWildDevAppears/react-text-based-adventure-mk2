@@ -10,6 +10,8 @@ export default class Pawn {
     stamina = 50;
     staminaMax = 50;
 
+    level = 1;
+
     get name() {
         return '';
     }
