@@ -8,6 +8,8 @@ import Character from './models/Character';
 
 import './index.css'
 import SceneViewer from './components/SceneViewer/SceneViewer';
+import ZoneStore, { ZoneActions } from './store/ZoneStore';
+import DBService from './services/DBService';
 
 class App extends Component {
     state = {
@@ -37,21 +39,34 @@ class App extends Component {
             this.setState({
                 ...this.state,
                 ...res,
-            })
+            });
+
+            ZoneActions.changeZone(this.state.zone);
         });
-
-
     }
 
     // @Pragma mark - end @Override
 
     moveTo = (id) => {
-        APIService.client.getEntry(id).then((location) => {
+        DBService.read('Zone', this.state.id, id).then((res) => {
             this.setState({
                 ...this.state,
-                location,
+                location: res.map[id],
             });
+        }).catch((err) => {
+            APIService.client.getEntry(id).then((location) => {
+                this.setState({
+                    ...this.state,
+                    location,
+                });
+
+                ZoneActions.changeLocation(
+                    this.state.location.sys.id,
+                    this.state.location,
+                );
+            })
         })
+
     }
 }
 
