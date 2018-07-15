@@ -1,10 +1,13 @@
 import idb from 'idb';
 
+import APIService from './APIService';
+import { ZoneActions } from '../store/ZoneStore';
+
 export default new class DBService {
     NAME = 'com.awilddevappears.textBasedAdventure';
     dbPromise;
 
-    constructor () {
+    constructor() {
         this.dbPromise = idb.open(this.NAME, 1, upgradeDB => {
             upgradeDB.createObjectStore('Zone', { keyPath: 'id' });
         });
@@ -38,7 +41,25 @@ export default new class DBService {
 
             return tx.complete;
         });
-
     }
 
+    getLocationFromZone(zoneId, locationId) {
+        return this.read('Zone', zoneId).then((res) => {
+            // If the zone and the location exists, use it
+            // otherwise get the location from the DB
+            if (res.map[locationId]) {
+                return res.map[locationId];
+            }
+            return Promise.reject();
+        }).catch((err) => {
+            return APIService.client.getEntry(locationId).then((location) => {
+                ZoneActions.changeLocation(
+                    location.sys.id,
+                    location,
+                );
+
+                return location;
+            });
+        });
+    }
 }();

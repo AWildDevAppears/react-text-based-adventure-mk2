@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 
 import Sidebar from './components/Sidebar/Sidebar';
+import SceneViewer from './components/SceneViewer/SceneViewer';
 
+import DBService from './services/DBService';
 import APIService from './services/APIService';
+
+import { ZoneActions } from './store/ZoneStore';
 
 import Character from './models/Character';
 
 import './index.css'
-import SceneViewer from './components/SceneViewer/SceneViewer';
-import ZoneStore, { ZoneActions } from './store/ZoneStore';
-import DBService from './services/DBService';
 
 class App extends Component {
     state = {
-        location: {
-        },
+        location: undefined,
         zone: '',
     }
 
@@ -48,25 +48,12 @@ class App extends Component {
     // @Pragma mark - end @Override
 
     moveTo = (id) => {
-        DBService.read('Zone', this.state.id, id).then((res) => {
+        DBService.getLocationFromZone(this.state.zone, id).then((location) => {
             this.setState({
                 ...this.state,
-                location: res.map[id],
+                location,
             });
-        }).catch((err) => {
-            APIService.client.getEntry(id).then((location) => {
-                this.setState({
-                    ...this.state,
-                    location,
-                });
-
-                ZoneActions.changeLocation(
-                    this.state.location.sys.id,
-                    this.state.location,
-                );
-            })
-        })
-
+        });
     }
 }
 
