@@ -7,6 +7,7 @@ import APIService from './services/APIService';
 import Character from './models/Character';
 
 import './index.css'
+import SceneViewer from './components/SceneViewer/SceneViewer';
 
 class App extends Component {
   state = {
@@ -22,6 +23,9 @@ class App extends Component {
           player={ new Character() }
           location={ this.state.location }
           moveTo={this.moveTo}
+        />
+        <SceneViewer
+          location={ this.state.location }
         />
       </div>
     );
