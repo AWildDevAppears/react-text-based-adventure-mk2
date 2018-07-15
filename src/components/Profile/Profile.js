@@ -30,7 +30,11 @@ export default class Profile extends Component {
     render() {
         return (
             <div className="profile">
-                <img src={ this.state.imgPath } className="profile__avatar" />
+                <img
+                    src={ this.state.imgPath }
+                    className="profile__avatar"
+                    alt="player avatar"
+                />
                 <h3>{ this.state.name }</h3>
 
                 <StatusBar
