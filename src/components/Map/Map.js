@@ -57,6 +57,7 @@ export default class Map extends Component {
     componentDidUpdate(_, prevState) {
         const promises = [];
 
+        // TODO: Reduce requests here.
         for (let k in this.state) {
             const reference = this.state[k];
 
