@@ -11,7 +11,6 @@ const ZONE_ACTIONS = {
 
 export const ZoneActions = {
     changeZone(id) {
-        console.log(id);
         Dispatcher.dispatch({
             type: ZONE_ACTIONS.CHANGE_ZONE,
             props: {
