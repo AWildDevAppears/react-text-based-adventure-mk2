@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import Character from '../../models/Character';
-
 import Profile from '../Profile/Profile'
 import Map from '../Map/Map';
 
