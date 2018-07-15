@@ -10,47 +10,49 @@ import './index.css'
 import SceneViewer from './components/SceneViewer/SceneViewer';
 
 class App extends Component {
-  state = {
-    location: {
-    },
-    zone: '',
-  }
+    state = {
+        location: {
+        },
+        zone: '',
+    }
 
-  render() {
-    return (
-      <div className="app">
-        <Sidebar
-          player={ new Character() }
-          location={ this.state.location }
-          moveTo={this.moveTo}
-        />
-        <SceneViewer
-          location={ this.state.location }
-        />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="app">
+                <Sidebar
+                    player={ new Character() }
+                    location={ this.state.location }
+                    moveTo={this.moveTo}
+                />
+                <SceneViewer
+                    location={ this.state.location }
+                />
+            </div>
+        );
+    }
 
-  componentDidMount() {
-    APIService.getStartingLocation()
-      .then((res) => {
-        this.setState({
-          ...this.state,
-          ...res,
+    componentDidMount() {
+        APIService.getStartingLocation()
+        .then((res) => {
+            this.setState({
+                ...this.state,
+                ...res,
+            })
+        });
+
+
+    }
+
+    // @Pragma mark - end @Override
+
+    moveTo = (id) => {
+        APIService.client.getEntry(id).then((location) => {
+            this.setState({
+                ...this.state,
+                location,
+            });
         })
-      })
-  }
-
-  // @Pragma mark - end @Override
-
-  moveTo = (id) => {
-    APIService.client.getEntry(id).then((location) => {
-      this.setState({
-        ...this.state,
-        location,
-      });
-    })
-  }
+    }
 }
 
 export default App;
