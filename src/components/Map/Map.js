@@ -150,7 +150,6 @@ export default class Map extends Component {
     }
 
     displayLocation = (location, compassDirection)  => {
-        console.log(location);
         if (!location.name || location.name === location.id) {
             return '';
         }
