@@ -2,7 +2,7 @@ import { createClient } from 'contentful';
 import { CONFIG } from '../config';
 
 export default new class APIService {
-    client = createClient(CONFIG.api); 
+    client = createClient(CONFIG.api);
 
     getStartingLocation() {
         return this.client
@@ -18,14 +18,21 @@ export default new class APIService {
     getZones(options = {}) {
         return this.client.getEntries({
             ...options,
-            'content_type': 'zone', 
+            'content_type': 'zone',
         });
     }
 
     getLocations(options = {}) {
         return this.client.getEntries({
             ...options,
-            'content_type': 'location', 
+            'content_type': 'location',
+        });
+    }
+
+    getScenes(options = {}) {
+        return this.client.getEntries({
+            ...options,
+            'content_type': 'scene',
         });
     }
 
@@ -33,15 +40,15 @@ export default new class APIService {
         return this.client.getEntries({
             ...options,
             'content_type[all]': [
-                'item', 
+                'item',
                 'itemAmmunition',
                 'weaponMelee',
                 'weapon',
                 'armorBoots',
                 'armorChest',
                 'armor',
-                'armorHead',  
-            ], 
+                'armorHead',
+            ],
         });
     }
 
@@ -50,8 +57,8 @@ export default new class APIService {
             ...options,
             'content_type[all]': [
                 'weaponMelee',
-                'weapon', 
-            ], 
+                'weapon',
+            ],
         });
     }
 
@@ -62,8 +69,8 @@ export default new class APIService {
                 'armorBoots',
                 'armorChest',
                 'armor',
-                'armorHead', 
-            ], 
+                'armorHead',
+            ],
         });
-    }  
+    }
 }();

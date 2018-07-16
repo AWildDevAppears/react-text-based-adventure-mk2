@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 
 import './scene-viewer.css';
+import SceneStore from '../../store/SceneStore';
 
 export default class SceneViewer extends Component {
     state = {
@@ -22,6 +23,14 @@ export default class SceneViewer extends Component {
 
         state.locationName = props.location.fields.name;
 
+        let scenes = props.location.fields.randomScenes;
+        if (scenes) {
+            let sceneLink = scenes[Math.floor(Math.random() * scenes.length)];
+            SceneStore.getScene(sceneLink.sys.id)
+                .then((scene) => {
+                    state.scene = scene;
+                });
+        }
         return state;
     }
 }

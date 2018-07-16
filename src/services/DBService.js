@@ -10,6 +10,7 @@ export default new class DBService {
     constructor() {
         this.dbPromise = idb.open(this.NAME, 1, upgradeDB => {
             upgradeDB.createObjectStore('Zone', { keyPath: 'id' });
+            upgradeDB.createObjectStore('Scene', { keyPath: 'id' });
         });
     }
 
