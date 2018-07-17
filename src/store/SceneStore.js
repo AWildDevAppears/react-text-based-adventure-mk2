@@ -1,10 +1,11 @@
 import { ReduceStore } from 'flux/utils';
 
-import DBService from '../services/DBService';
 import Dispatcher from './Dispatcher';
+
+import DBService from '../services/DBService';
 import APIService from '../services/APIService';
+
 import Scene from '../models/Scene';
-import { Promise } from 'core-js';
 import BodyCopy from '../models/BodyCopy';
 
 const SCENE_ACTIONS = {
@@ -19,9 +20,7 @@ export default new class SceneStore extends ReduceStore {
     }
 
     getInitialState() {
-        return {
-            id: ''
-        };
+        return new Scene();
     }
 
     reduce(state, action) {
@@ -36,7 +35,7 @@ export default new class SceneStore extends ReduceStore {
             return;
         }
 
-        DBService.update('Scene', state.id, {});
+        // DBService.update('Scene', state.id, {});
     }
 
     getScene(id) {
@@ -65,6 +64,9 @@ export default new class SceneStore extends ReduceStore {
                             })
                             .then((...actions) => {
                                 scene.actions = actions;
+
+                                // Store the result in our DB so we don't have to do
+                                // this all again.
                                 return DBService.update('Scene', scene.id, scene);
                             })
                             .then(() => {
