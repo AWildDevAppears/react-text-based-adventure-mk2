@@ -5,10 +5,15 @@
 - As a user I want to be able to move around a zone
 - As a user I want to cache information about my zone
 
+## Next
+
+- As a user I want to see at least one scene for all of the rooms in my first house
+- As a user I want to be able to perform actions in a scene
+- As a user I want to be able to sleep in my bed
+
 ## Backlog
 - As a user I want to be able to see my locations scene
 - As a user I want time to progress as i move through the game
-- As a user I want to be able to perform actions in a scene
 - As a user I want zones to change as I interact with them
 - As a user I want some scenes to be able to automatically trigger events
 - As a user I want to be able to engage in turn based combat
@@ -27,7 +32,7 @@
 - As a user I want to manage my own town
 - As a user I want to be able to customize my weapons and armors
 - As a user I want to be able to be affected by weather
-- As a user I want to be able to use spells 
+- As a user I want to be able to use spells
 - As a user I want to interact in real time combat
 - As a user I want to be able to perform jobs
 - As a user I want to save my game
