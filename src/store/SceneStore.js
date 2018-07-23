@@ -25,8 +25,10 @@ export default new class SceneStore extends ReduceStore {
 
     reduce(state, action) {
         let s = { ...state };
-        this.cacheState(s);
 
+        // handle actions here
+
+        this.cacheState(s);
         return s;
     }
 
@@ -35,12 +37,19 @@ export default new class SceneStore extends ReduceStore {
             return;
         }
 
-        // DBService.update('Scene', state.id, {});
+        // state should be a valid Scene object, so we can just store it.
+        DBService.update('Scene', state.id, state);
     }
 
     getScene(id) {
         return DBService.read('Scene', id)
-            .catch((err) => {
+            .then((scene) => {
+                if (!scene) {
+                    return Promise.reject();
+                }
+                return scene;
+            })
+            .catch(() => {
                 return APIService.client.getEntry(id)
                     .then((sceneObject) => {
                         let scene = new Scene();
@@ -53,9 +62,12 @@ export default new class SceneStore extends ReduceStore {
                             return APIService.client.getEntry(bodyLink.sys.id);
                         });
 
-                        let actionPromises = sceneObject.fields.actions.map((actionLink) => {
-                            return APIService.client.getEntry(actionLink.sys.id);
-                        });
+                        let actionPromises = [];
+                        if (sceneObject.fields.actions) {
+                            actionPromises = sceneObject.fields.actions.map((actionLink) => {
+                                return APIService.client.getEntry(actionLink.sys.id);
+                            });
+                        }
 
                         return Promise.all(bodyPromises)
                             .then((...body) => {

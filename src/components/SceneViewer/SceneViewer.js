@@ -7,30 +7,44 @@ import SceneStore from '../../store/SceneStore';
 export default class SceneViewer extends Component {
     state = {
         locationName: '',
-        scene: undefined,
+        scene: {},
     }
-
     render() {
         return (
             <div className="scene-viewer">
                 <h1>{ this.state.locationName }</h1>
+
+                <h2>{ this.state.scene.heading }</h2>
+
+                { this.displayBody() }
             </div>
         )
     }
 
-    static getDerivedStateFromProps(props, state) {
-        if (!props.location) return state;
+    componentDidUpdate(_, prevState) {
+        if (this.state.locationName !== this.props.location.fields.name) {
+            this.setState({
+                locationName: this.props.location.fields.name,
+            });
 
-        state.locationName = props.location.fields.name;
-
-        let scenes = props.location.fields.randomScenes;
-        if (scenes) {
-            let sceneLink = scenes[Math.floor(Math.random() * scenes.length)];
-            SceneStore.getScene(sceneLink.sys.id)
-                .then((scene) => {
-                    state.scene = scene;
-                });
+            let scenes = this.props.location.fields.randomScenes;
+            if (scenes) {
+                let sceneLink = scenes[Math.floor(Math.random() * scenes.length)];
+                SceneStore.getScene(sceneLink.sys.id)
+                    .then((scene) => {
+                        this.setState({
+                            scene,
+                        });
+                    });
+            }
         }
-        return state;
     }
+
+    displayBody = () => {
+        let body = this.state.scene.body;
+
+        if (!body) return '';
+        return this.state.scene.body.map((ref) => ref.content);
+    }
+
 }

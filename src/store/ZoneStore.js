@@ -44,7 +44,6 @@ export default new class ZoneStore extends ReduceStore {
         super(Dispatcher);
     }
 
-
     getInitialState() {
         return {
             id: '',
