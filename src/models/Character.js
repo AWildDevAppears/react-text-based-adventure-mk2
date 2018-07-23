@@ -1,4 +1,5 @@
 import Pawn from "./Pawn";
+import Inventory from "./Inventory";
 
 export default class Character extends Pawn {
     // name
@@ -15,7 +16,7 @@ export default class Character extends Pawn {
     }
 
     // inventory
-    inventory = [];
+    inventory = new Inventory();
     maxItems = 0;
 
     money = 0;
