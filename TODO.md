@@ -7,20 +7,20 @@
 - As a user I want to be able to see my locations scene
 - As a user I want to see at least one scene for all of the rooms in my first house
 
-## Next
+## Next (Max 5)
 
 - As a user I want to be able to perform actions in a scene
 - As a user I want to be able to sleep in my bed
+- As a user I want time to progress as I move through the game
+- As a user I want zones to change as I interact with them
+- As a user I want to see my inventory
 
 ## Backlog
 
-- As a user I want time to progress as i move through the game
-- As a user I want zones to change as I interact with them
 - As a user I want some scenes to be able to automatically trigger events
 - As a user I want to be able to engage in turn based combat
 - As a user I want to use abilities in turn based combat
 - As a user I want to be able to converse with NPCs
-- As a user I want to see my inventory
 - As a user I want a more in depth overview of my character
 - As a user I want to equip weapons and armors to my character
 - As a user I want to create a character
