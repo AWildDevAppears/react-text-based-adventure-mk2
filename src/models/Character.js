@@ -3,8 +3,8 @@ import Inventory from "./Inventory";
 
 export default class Character extends Pawn {
     // name
-    forename = 'Bill';
-    surname = 'Clinton';
+    forename = '';
+    surname = '';
 
     equipment = {
         head: undefined,
