@@ -2,6 +2,7 @@ import { ReduceStore } from 'flux/utils';
 
 import DBService from '../services/DBService';
 import Dispatcher from './Dispatcher';
+import SceneAction, { SCENE_ACTIONS } from '../models/SceneAction';
 
 const ZONE_ACTIONS = {
     CHANGE_ZONE: 'CHANGE_ZONE',
@@ -54,8 +55,6 @@ export default new class ZoneStore extends ReduceStore {
 
     reduce(state, action) {
         let s = { ...state };
-        this.cacheState(s);
-
         switch (action.type) {
             case ZONE_ACTIONS.CHANGE_ZONE:
                 s.id = action.props.id;
@@ -70,12 +69,17 @@ export default new class ZoneStore extends ReduceStore {
                 break;
             case ZONE_ACTIONS.CHANGE_LOCATION:
                 s.map[action.props.id] = action.props.location;
+                break;
+            case SCENE_ACTIONS.SET_ZONE_VARIABLE:
+                s.variables[action.params.prop] = action.params.value;
+                break;
         }
 
+        this.saveState(s);
         return s;
     }
 
-    cacheState(state) {
+    saveState(state) {
         if (state.id === '') {
             return;
         }

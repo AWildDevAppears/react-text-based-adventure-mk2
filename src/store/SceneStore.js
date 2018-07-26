@@ -9,9 +9,6 @@ import Scene from '../models/Scene';
 import BodyCopy from '../models/BodyCopy';
 import SceneAction from '../models/SceneAction';
 
-const SCENE_ACTIONS = {
-};
-
 export const SceneActions = {
 }
 

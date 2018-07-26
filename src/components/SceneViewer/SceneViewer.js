@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 
 import './scene-viewer.css';
 import SceneStore from '../../store/SceneStore';
+import { SCENE_ACTIONS } from '../../models/SceneAction';
+import ZoneStore from '../../store/ZoneStore';
+import Dispatcher from '../../store/Dispatcher';
 
 export default class SceneViewer extends Component {
     state = {
@@ -17,6 +20,10 @@ export default class SceneViewer extends Component {
                 <h2>{ this.state.scene.heading }</h2>
 
                 { this.displayBody() }
+
+                <div>
+                    { this.displayActions() }
+                </div>
             </div>
         )
     }
@@ -44,7 +51,21 @@ export default class SceneViewer extends Component {
         let body = this.state.scene.body;
 
         if (!body) return '';
-        return this.state.scene.body.map((ref) => ref.content);
+        return body.map((ref) => ref.content);
+    }
+
+    displayActions = () => {
+        let actions = this.state.scene.actions;
+
+        if (!actions) return '';
+        return actions.map((action) => {
+            console.log(action);
+            return (<button onClick={ e => this.onSendAction(action) }>{ action.text }</button>)
+        });
+    }
+
+    onSendAction = (action) => {
+        Dispatcher.dispatch(action);
     }
 
 }
