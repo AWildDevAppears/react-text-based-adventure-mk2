@@ -26,8 +26,6 @@ export default class SceneAction {
 
     static fromData(object) {
         let act = object[0];
-        console.log(act);
-
         let action = new SceneAction();
 
         action.id = act.sys.id;
