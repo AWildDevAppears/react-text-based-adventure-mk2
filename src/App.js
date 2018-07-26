@@ -16,15 +16,16 @@ class App extends Component {
     state = {
         location: undefined,
         zone: '',
+        player: new Character(),
     }
 
     render() {
         return (
             <div className="app">
                 <Sidebar
-                    player={ new Character() }
+                    player={ this.state.player }
                     location={ this.state.location }
-                    moveTo={this.moveTo}
+                    moveTo={ this.moveTo }
                 />
                 <SceneViewer
                     location={ this.state.location }
