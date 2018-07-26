@@ -7,6 +7,7 @@ import APIService from '../services/APIService';
 
 import Scene from '../models/Scene';
 import BodyCopy from '../models/BodyCopy';
+import SceneAction from '../models/SceneAction';
 
 const SCENE_ACTIONS = {
 };
@@ -75,7 +76,7 @@ export default new class SceneStore extends ReduceStore {
                                 return Promise.all(actionPromises)
                             })
                             .then((...actions) => {
-                                scene.actions = actions;
+                                scene.actions = actions.map(SceneAction.fromData);
 
                                 // Store the result in our DB so we don't have to do
                                 // this all again.
