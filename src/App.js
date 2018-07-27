@@ -10,7 +10,7 @@ import { ZoneActions } from './store/ZoneStore';
 
 import Character from './models/Character';
 
-import './index.css'
+import './css/index.css'
 
 class App extends Component {
     state = {
