@@ -1,0 +1,26 @@
+.fab {
+    -webkit-appearance: none;
+    background-color: #666;
+    border-radius: 50%;
+    top: 0;
+    height: 50px;
+    width: 50px;
+    position: relative;
+
+}
+
+.fab::before {
+    font-size: 1.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    color: #FFF;
+}
+
+.button--bar {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
