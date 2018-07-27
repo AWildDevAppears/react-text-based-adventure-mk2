@@ -9,28 +9,43 @@ import './sidebar.css';
 export default class Sidebar extends Component {
     render() {
         return (
-        <aside className="sidebar">
-            <Profile for={ this.props.player }  />
+            <aside className="sidebar">
+                <Profile for={ this.props.player }  />
 
-            <div className="button--bar">
-                <FloatingActionButton
-                    icon="user"
-                    role="character"
+                <div className="button--bar">
+                    <FloatingActionButton
+                        icon="user"
+                        role="character"
+                        onClick={ this.onCharacterButtonPressed }
+                    />
+                    <FloatingActionButton
+                        icon="box-open"
+                        role="inventory"
+                        onClick={ this.onInventoryButtonPressed }
+                    />
+                    <FloatingActionButton
+                        icon="cog"
+                        role="settings"
+                        onClick={ this.onSettingsButtonPressed }
+                    />
+                </div>
+                <Map
+                    location={ this.props.location }
+                    moveTo={ this.props.moveTo }
                 />
-                <FloatingActionButton
-                    icon="box-open"
-                    role="inventory"
-                />
-                <FloatingActionButton
-                    icon="cog"
-                    role="settings"
-                />
-            </div>
-            <Map
-                location={ this.props.location }
-                moveTo={ this.props.moveTo }
-            />
-        </aside>
+            </aside>
         );
+    }
+
+    onInventoryButtonPressed = () => {
+
+    }
+
+    onCharacterButtonPressed = () => {
+
+    }
+
+    onSettingsButtonPressed = () => {
+
     }
 }
