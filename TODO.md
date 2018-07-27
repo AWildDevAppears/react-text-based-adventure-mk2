@@ -6,10 +6,10 @@
 - As a user I want to cache information about my zone
 - As a user I want to be able to see my locations scene
 - As a user I want to see at least one scene for all of the rooms in my first house
+- As a user I want to be able to perform actions in a scene
 
 ## Next (Max 5)
 
-- As a user I want to be able to perform actions in a scene
 - As a user I want to be able to sleep in my bed
 - As a user I want time to progress as I move through the game
 - As a user I want zones to change as I interact with them
