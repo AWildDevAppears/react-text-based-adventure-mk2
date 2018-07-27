@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-
+import { Container } from 'flux/utils';
 
 import './scene-viewer.css';
-import SceneStore from '../../store/SceneStore';
-import { SCENE_ACTIONS } from '../../models/SceneAction';
+import SceneStore, { SceneActions } from '../../store/SceneStore';
+import SceneAction, { SCENE_ACTIONS } from '../../models/SceneAction';
 import ZoneStore from '../../store/ZoneStore';
 import Dispatcher from '../../store/Dispatcher';
 
-export default class SceneViewer extends Component {
+class SceneViewer extends Component {
     state = {
         locationName: '',
         scene: {},
     }
+
     render() {
         return (
             <div className="scene-viewer">
@@ -37,12 +38,7 @@ export default class SceneViewer extends Component {
             let scenes = this.props.location.fields.randomScenes;
             if (scenes) {
                 let sceneLink = scenes[Math.floor(Math.random() * scenes.length)];
-                SceneStore.getScene(sceneLink.sys.id)
-                    .then((scene) => {
-                        this.setState({
-                            scene,
-                        });
-                    });
+                SceneActions.updateScene(sceneLink.sys.id);
             }
         }
     }
@@ -59,8 +55,7 @@ export default class SceneViewer extends Component {
 
         if (!actions) return '';
         return actions.map((action) => {
-            console.log(action);
-            return (<button onClick={ e => this.onSendAction(action) }>{ action.text }</button>)
+            return (<button key={ action.id } onClick={ e => this.onSendAction(action) }>{ action.text }</button>);
         });
     }
 
@@ -68,4 +63,17 @@ export default class SceneViewer extends Component {
         Dispatcher.dispatch(action);
     }
 
+    static getStores() {
+        return [SceneStore];
+    }
+
+    static calculateState(prevState) {
+        return {
+            locationName: prevState ? prevState.locationName : '',
+            scene: SceneStore.getState(),
+        };
+    }
 }
+
+const sceneViewer = Container.create(SceneViewer);
+export default sceneViewer;

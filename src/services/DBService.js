@@ -8,6 +8,9 @@ export default new class DBService {
     dbPromise;
 
     constructor() {
+        // TODO: Allow us to keep the cache around
+        indexedDB.deleteDatabase(this.NAME);
+
         this.dbPromise = idb.open(this.NAME, 1, upgradeDB => {
             upgradeDB.createObjectStore('Zone', { keyPath: 'id' });
             upgradeDB.createObjectStore('Scene', { keyPath: 'id' });

@@ -7,9 +7,17 @@ import APIService from '../services/APIService';
 
 import Scene from '../models/Scene';
 import BodyCopy from '../models/BodyCopy';
-import SceneAction from '../models/SceneAction';
+import SceneAction, { SCENE_ACTIONS } from '../models/SceneAction';
 
 export const SceneActions = {
+    updateScene(scene) {
+        Dispatcher.dispatch({
+            type: SCENE_ACTIONS.CHANGE_SCENE,
+            params: {
+                scene,
+            }
+        })
+    }
 }
 
 export default new class SceneStore extends ReduceStore {
@@ -24,13 +32,25 @@ export default new class SceneStore extends ReduceStore {
     reduce(state, action) {
         let s = { ...state };
 
-        // handle actions here
-
-        this.cacheState(s);
+        switch(action.type) {
+            case SCENE_ACTIONS.CHANGE_SCENE:
+                this.getScene(action.params.scene)
+                    .then((scene) => {
+                        Dispatcher.dispatch({
+                            type: 'SCENE_PROCESS_COMPLETED',
+                            state: scene,
+                        });
+                    })
+                break;
+            case 'SCENE_PROCESS_COMPLETED':
+                s = action.state;
+                this.saveState(s);
+                break;
+        }
         return s;
     }
 
-    cacheState(state) {
+    saveState(state) {
         if (state.id === '') {
             return;
         }
@@ -73,7 +93,12 @@ export default new class SceneStore extends ReduceStore {
                                 return Promise.all(actionPromises)
                             })
                             .then((...actions) => {
-                                scene.actions = actions.map(SceneAction.fromData);
+                                // Filter out empty actions (when there are no actions).
+                                actions = actions.filter(action => action.length > 0);
+
+                                if (actions.length > 0) {
+                                    scene.actions = actions.map(SceneAction.fromData);
+                                }
 
                                 // Store the result in our DB so we don't have to do
                                 // this all again.

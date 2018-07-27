@@ -1,19 +1,19 @@
 export const SCENE_ACTIONS = {
-    CHANGE_ZONE: 'ActionChangeZone',
+    CHANGE_ZONE: 'actionChangeZone',
         // zone = id
         // fixedTime = integer
         // incrementTime = integer
-    CHANGE_SCENE: 'ActionChangeScene',
+    CHANGE_SCENE: 'actionChangeScene',
         // scene = id
         // fixedTime = integer
         // incrementTime = integer
-    SET_ZONE_VARIABLE: 'ActionSetVariable',
+    SET_ZONE_VARIABLE: 'actionSetVariable',
         // prop = string
         // value = boolean | integer | string
         // scene = id
-    LOOT_CONTAINER: 'ActionLootContainer',
+    LOOT_CONTAINER: 'actionLootContainer',
         // container = id
-    TAKE_DAMAGE: 'ActionTakeDamaqe',
+    TAKE_DAMAGE: 'actionTakeDamaqe',
         // scene = id
         // damage = number
 }
@@ -29,7 +29,7 @@ export default class SceneAction {
         let action = new SceneAction();
 
         action.id = act.sys.id;
-        action.type = act.sys.contentType.id;
+        action.type = act.sys.contentType.sys.id;
         action.text = act.fields.text;
 
         switch (action.type) {
@@ -37,14 +37,14 @@ export default class SceneAction {
                 action.params = {
                     zone: act.fields.zone.sys.id,
                     fixedTime: act.fields.fixedTime,
-                    incrementTime: act.field.incrementTime,
+                    incrementTime: act.fields.incrementTime,
                 };
                 break;
             case SCENE_ACTIONS.CHANGE_SCENE:
                 action.params = {
                     scene: act.fields.scene.sys.id,
                     fixedTime: act.fields.fixedTime,
-                    incrementTime: act.field.incrementTime,
+                    incrementTime: act.fields.incrementTime,
                 };
                 break;
             case SCENE_ACTIONS.SET_ZONE_VARIABLE:
