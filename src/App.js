@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Sidebar from './components/Sidebar/Sidebar';
 import SceneViewer from './components/SceneViewer/SceneViewer';
+import Modal from './components/Modal/Modal';
 
 import DBService from './services/DBService';
 import APIService from './services/APIService';
@@ -17,6 +18,9 @@ class App extends Component {
         location: undefined,
         zone: '',
         player: new Character(),
+        showInventory: false,
+        showOptions: false,
+        showCharacter: false,
     }
 
     render() {
@@ -26,10 +30,27 @@ class App extends Component {
                     player={ this.state.player }
                     location={ this.state.location }
                     moveTo={ this.moveTo }
+                    onInventoryButtonPressed={ this.onInventoryButtonPressed }
+                    onCharacterButtonPressed={ this.onCharacterButtonPressed }
+                    onSettingsButtonPressed={ this.onSettingsButtonPressed }
+
                 />
                 <SceneViewer
                     location={ this.state.location }
                 />
+
+
+                <Modal visible={ this.state.showInventory }>
+                    <h1>Inventory</h1>
+                </Modal>
+
+                <Modal visible={ this.state.showCharacter }>
+                    <h1>Character</h1>
+                </Modal>
+
+                <Modal visible={ this.state.showOptions }>
+                    <h1>Optionsh</h1>
+                </Modal>
             </div>
         );
     }
@@ -54,6 +75,25 @@ class App extends Component {
                 ...this.state,
                 location,
             });
+        });
+    }
+
+
+    onInventoryButtonPressed = () => {
+        this.setState({
+            showInventory: true,
+        });
+    }
+
+    onCharacterButtonPressed = () => {
+        this.setState({
+            showCharacter: true,
+        });
+    }
+
+    onSettingsButtonPressed = () => {
+        this.setState({
+            showOptions: true,
         });
     }
 }

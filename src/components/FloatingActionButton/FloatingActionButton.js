@@ -4,13 +4,15 @@ import './fab.css';
 import '../../css/fontawesome.css';
 import '../../css/solid.css';
 
-export default class Profile extends Component {
+export default class FloatingActionButton extends Component {
+    state = {}
+
     render() {
         return (
             <button
                 className={ this.state.className }
                 onClick={ this.props.onClick }
-                aria-role={ this.props.role }
+                aria-label={ this.props.role }
             >
                 { this.props.text }
             </button>);

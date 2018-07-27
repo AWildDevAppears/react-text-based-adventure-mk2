@@ -16,17 +16,17 @@ export default class Sidebar extends Component {
                     <FloatingActionButton
                         icon="user"
                         role="character"
-                        onClick={ this.onCharacterButtonPressed }
+                        onClick={ this.props.onCharacterButtonPressed }
                     />
                     <FloatingActionButton
                         icon="box-open"
                         role="inventory"
-                        onClick={ this.onInventoryButtonPressed }
+                        onClick={ this.props.onInventoryButtonPressed }
                     />
                     <FloatingActionButton
                         icon="cog"
                         role="settings"
-                        onClick={ this.onSettingsButtonPressed }
+                        onClick={ this.props.onSettingsButtonPressed }
                     />
                 </div>
                 <Map
@@ -35,17 +35,5 @@ export default class Sidebar extends Component {
                 />
             </aside>
         );
-    }
-
-    onInventoryButtonPressed = () => {
-
-    }
-
-    onCharacterButtonPressed = () => {
-
-    }
-
-    onSettingsButtonPressed = () => {
-
     }
 }
