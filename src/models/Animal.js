@@ -1,4 +1,4 @@
-import Pawn from "./Pawn";
+import Pawn from "./abstract/Pawn";
 
 export default class Animal extends Pawn {
     modifier  = '';

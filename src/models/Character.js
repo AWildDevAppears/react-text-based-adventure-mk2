@@ -1,4 +1,4 @@
-import Pawn from "./Pawn";
+import Pawn from "./abstract/Pawn";
 import Inventory from "./Inventory";
 
 export default class Character extends Pawn {
