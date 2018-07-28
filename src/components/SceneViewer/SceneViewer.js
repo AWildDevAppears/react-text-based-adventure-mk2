@@ -3,8 +3,6 @@ import { Container } from 'flux/utils';
 
 import './scene-viewer.css';
 import SceneStore, { SceneActions } from '../../store/SceneStore';
-import SceneAction, { SCENE_ACTIONS } from '../../models/SceneAction';
-import ZoneStore from '../../store/ZoneStore';
 import Dispatcher from '../../store/Dispatcher';
 
 class SceneViewer extends Component {
@@ -59,9 +57,7 @@ class SceneViewer extends Component {
         });
     }
 
-    onSendAction = (action) => {
-        Dispatcher.dispatch(action);
-    }
+    onSendAction = (action) => Dispatcher.dispatch(action);
 
     static getStores() {
         return [SceneStore];
