@@ -44,10 +44,8 @@ export default new class SceneStore extends ReduceStore {
                     })
                 break;
             case SCENE_ACTIONS.LOOT_CONTAINER:
-                this.getContianer(action.params.contianer)
-                    .then((container) => {
-                        // Push the container to the trade menu and show it.
-                    })
+                    // Open the trading view.
+                    // TODO: Create an overarching controller for all of these sub-views and modals
             case 'SCENE_PROCESS_COMPLETED':
                 s = action.state;
                 this.saveState(s);
@@ -63,33 +61,6 @@ export default new class SceneStore extends ReduceStore {
 
         // state should be a valid Scene object, so we can just store it.
         DBService.update('Scene', state.id, state);
-    }
-
-    // TODO: Move this to its own store
-    getContianer(id) {
-        return DBService.read('Container', id)
-            .then((contianer) => {
-                if (!container) {
-                    return Promise.reject();
-                }
-                return contianer;
-            })
-            .catch(() => {
-                return APIService.client.getEntry(id)
-                    .then((containerObject) => {
-                        let contiainer = new Container();
-
-                        contianer.id = contianerObject.sys.id;
-                        contianer.name = containerObject.fields.identifier;
-                        contianer.maxItems = containerObject.fields.maxItems;
-                        container.minItems = containerObject.fields.minItems;
-                        container.refills = containerObject.fields.refills;
-                        container.possibleItems = containerObject.fields.possibleItems
-                            .map((item) => item.sys.id);
-
-                        return DBService.update('Container', id, container);
-                    })
-            });
     }
 
     getScene(id) {
