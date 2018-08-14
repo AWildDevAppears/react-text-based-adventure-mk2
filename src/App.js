@@ -79,18 +79,21 @@ class App extends Component {
     }
 
 
+    // TODO: Move these to ManagerStore
     onInventoryButtonPressed = () => {
         this.setState({
             showInventory: true,
         });
     }
 
+    // TODO: Move these to ManagerStore
     onCharacterButtonPressed = () => {
         this.setState({
             showCharacter: true,
         });
     }
 
+    // TODO: Move these to ManagerStore
     onSettingsButtonPressed = () => {
         this.setState({
             showOptions: true,
