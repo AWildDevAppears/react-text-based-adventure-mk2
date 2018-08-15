@@ -9,7 +9,6 @@ export const MANAGER_VIEWS = {
     SHOW_INVENTORY: 'SHOW_INVENTORY',
     SHOW_SETTINGS: 'SHOW_SETTINGS',
     SHOW_CHARACTER: 'SHOW_CHARACTER',
-    SHOW_TRADE_VIEW: 'SHOW_TRADE_VIEW',
 }
 
 export default new class ManagerStore extends ReduceStore {
@@ -27,9 +26,7 @@ export default new class ManagerStore extends ReduceStore {
         let s = { ...state };
 
         switch(action.type) {
-            case MANAGER_VIEWS.SHOW_TRADE_VIEW:
-                s.view = MANAGER_VIEWS.SHOW_TRADE_VIEW;
-                break;
+            // TODO: Show the trade view for monetary trades
             case SCENE_ACTIONS.LOOT_CONTAINER:
                 s.view = MANAGER_VIEWS.SHOW_TRADE_VIEW;
                 break;
