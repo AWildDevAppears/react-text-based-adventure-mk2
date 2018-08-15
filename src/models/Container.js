@@ -9,20 +9,20 @@ export default class Container {
     refills = false;
     possibleItems = [];
 
-    currentItems = new Inventory();
+    inventory = new Inventory();
 
     buildUp() {
         let itemCount = Math.floor(Math.random() * (this.maxItems - this.minItems + 1));
 
         while (this.possibleItems.length < itemCount) {
-            this.currentItems.putItems(this.possibleItems[Math.floor(Math.random() * (this.possibleItems.length + 1))]);
+            this.inventory.putItems(this.possibleItems[Math.floor(Math.random() * (this.possibleItems.length + 1))]);
         }
     }
 
     tearDown() {
         // Only remove all of the items if we plan to refill it.
         if (this.refills) {
-            this.currentItems = [];
+            this.inventory = [];
         }
     }
 }

@@ -4,7 +4,7 @@ import { Container } from 'flux/utils';
 import Sidebar from './components/Sidebar/Sidebar';
 import SceneViewer from './components/SceneViewer/SceneViewer';
 import Modal from './components/Modal/Modal';
-import { TradeView } from './components/TradeView/TradeView';
+import TradeView from './components/TradeView/TradeView';
 
 import DBService from './services/DBService';
 import APIService from './services/APIService';
@@ -17,7 +17,7 @@ import Character from './models/Character';
 
 import './css/index.css'
 
-class App extends Component {
+export class App extends Component {
     state = {
         location: undefined,
         zone: '',
@@ -65,7 +65,7 @@ class App extends Component {
                 </Modal>
 
                 <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_TRADE_VIEW }>
-                    <TradeView />
+                    <TradeView player={ this.state.player } />
                 </Modal>
             </div>
         );

@@ -7,7 +7,6 @@ export default class Modal extends Component {
 
     render() {
         if (!this.props.visible) return '';
-        console.log(this.props)
         return (
             <div className="modal">
                 <div className="modal__content">

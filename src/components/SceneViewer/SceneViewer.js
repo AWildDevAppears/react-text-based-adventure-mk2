@@ -7,7 +7,7 @@ import Dispatcher from '../../store/Dispatcher';
 
 import './scene-viewer.css';
 
-class SceneViewer extends Component {
+export class SceneViewer extends Component {
     state = {
         locationName: '',
         scene: {},

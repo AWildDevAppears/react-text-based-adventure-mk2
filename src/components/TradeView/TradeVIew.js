@@ -5,7 +5,14 @@ import TradingStore from '../../store/TradingStore';
 
 import Trader from '../../models/Trader';
 
+
 export class TradeView extends Component {
+    state = {
+        player: undefined,
+        trader: undefined,
+        isMonetaryTrade: false,
+    }
+
     static getStores() {
         return [TradingStore];
     }
@@ -16,29 +23,32 @@ export class TradeView extends Component {
         return {
             ...prevState,
             isMonetaryTrade: store.isMonetaryTrade,
-            player: new Trader(store.player),
+
             trader: new Trader(store.trader),
         };
     }
-
     render() {
+        let player = new Trader(this.props.player);
         return (
             <div className="trade">
-                { this.showProfileFor(this.state.player) }
+                { this.showProfileFor(player) }
                 { this.showProfileFor(this.state.trader) }
             </div>
         );
     }
 
-    showBalanceFor = (trader) => {
+    showProfileFor = (trader) => {
+        if (!trader) return;
+
         let balanceBlock = this.state.isMonetaryTrade ? (<h3>trader.balance</h3>) : '';
+        let inventoryItems = trader.inventory ? trader.inventory.getAllItems().map(this.createInventoryCell) : [];
 
         return (
             <div className="trade__panel">
                 <h2>{ trader.name }</h2>
                 { balanceBlock }
                 <div className="trade__list">
-                    { trader.inventory.getAllItems().map(this.createInventoryCell) }
+                    { inventoryItems }
                 </div>
             </div>
         );

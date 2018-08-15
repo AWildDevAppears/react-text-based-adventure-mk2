@@ -6,9 +6,9 @@ import APIService from '../services/APIService';
 import Dispatcher from './Dispatcher';
 
 import { SCENE_ACTIONS } from '../models/SceneAction';
-import  Container from '../models/Container';
+import Container from '../models/Container';
 
-export default class TradingStore extends ReduceStore {
+export default new class TradingStore extends ReduceStore {
     constructor() {
         super(Dispatcher);
     }
@@ -16,7 +16,6 @@ export default class TradingStore extends ReduceStore {
     getInitialState() {
         return {
             trader: {},
-            player: {},
             isMonetaryTrade: false,
         };
     }
@@ -24,10 +23,13 @@ export default class TradingStore extends ReduceStore {
     reduce(state, action) {
         let s = { ...state };
 
+
+
         switch(action.type) {
             case SCENE_ACTIONS.LOOT_CONTAINER:
                 this.getContianer(action.params.container)
                     .then((container) => {
+                        container.buildUp();
                         s.trader = container;
                         s.isMonetaryTrade = false;
                     });
@@ -46,10 +48,9 @@ export default class TradingStore extends ReduceStore {
                 return container;
             })
             .catch(() => {
+                let container = new Container();
                 return APIService.client.getEntry(id)
                     .then((containerObject) => {
-                        let container = new Container();
-
                         container.id = containerObject.sys.id;
                         container.name = containerObject.fields.identifier;
                         container.maxItems = containerObject.fields.maxItems;
@@ -60,10 +61,13 @@ export default class TradingStore extends ReduceStore {
 
                         return DBService.update('Container', id, container);
                     })
+                    .then(() => {
+                        return container;
+                    });
             });
     }
 
     getTrader(id) {
         // TODO: Implement this
     }
-}
+}();
