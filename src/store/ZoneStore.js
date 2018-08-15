@@ -1,7 +1,9 @@
 import { ReduceStore } from 'flux/utils';
 
-import DBService from '../services/DBService';
 import Dispatcher from './Dispatcher';
+
+import DBService from '../services/DBService';
+
 import { SCENE_ACTIONS } from '../models/SceneAction';
 
 const ZONE_ACTIONS = {

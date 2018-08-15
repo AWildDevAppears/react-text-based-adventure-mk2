@@ -4,18 +4,18 @@ import { Container } from 'flux/utils';
 import Sidebar from './components/Sidebar/Sidebar';
 import SceneViewer from './components/SceneViewer/SceneViewer';
 import Modal from './components/Modal/Modal';
+import { TradeView } from './components/TradeView/TradeView';
 
 import DBService from './services/DBService';
 import APIService from './services/APIService';
 
 import { ZoneActions } from './store/ZoneStore';
 import ManagerStore, { MANAGER_VIEWS } from './store/ManagerStore';
+import Dispatcher from './store/Dispatcher';
 
 import Character from './models/Character';
 
 import './css/index.css'
-import Dispatcher from './store/Dispatcher';
-import { TradeView } from './components/TradeView/TradeView';
 
 class App extends Component {
     state = {

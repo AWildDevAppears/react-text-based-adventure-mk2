@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Container } from 'flux/utils';
 
-import './scene-viewer.css';
 import SceneStore, { SceneActions } from '../../store/SceneStore';
+
 import Dispatcher from '../../store/Dispatcher';
+
+import './scene-viewer.css';
 
 class SceneViewer extends Component {
     state = {

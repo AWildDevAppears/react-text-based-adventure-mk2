@@ -15,7 +15,8 @@ export default class FloatingActionButton extends Component {
                 aria-label={ this.props.label }
             >
                 { this.props.text }
-            </button>);
+            </button>
+        );
     }
 
     static getDerivedStateFromProps(props) {

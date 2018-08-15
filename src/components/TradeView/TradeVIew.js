@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container } from 'flux/utils';
 
 import TradingStore from '../../store/TradingStore';
+
 import Trader from '../../models/Trader';
 
 export class TradeView extends Component {
