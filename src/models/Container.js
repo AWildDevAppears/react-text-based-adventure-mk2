@@ -1,3 +1,5 @@
+import Inventory from "./Inventory";
+
 export default class Container {
 
     id = "";
@@ -7,13 +9,13 @@ export default class Container {
     refills = false;
     possibleItems = [];
 
-    currentItems = [];
+    currentItems = new Inventory();
 
     buildUp() {
         let itemCount = Math.floor(Math.random() * (this.maxItems - this.minItems + 1));
 
         while (this.possibleItems.length < itemCount) {
-            this.currentItems.push(this.possibleItems[Math.floor(Math.random() * (this.possibleItems.length + 1))]);
+            this.currentItems.putItems(this.possibleItems[Math.floor(Math.random() * (this.possibleItems.length + 1))]);
         }
     }
 
