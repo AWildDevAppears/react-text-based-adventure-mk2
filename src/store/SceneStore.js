@@ -6,7 +6,6 @@ import DBService from '../services/DBService';
 import APIService from '../services/APIService';
 
 import Scene from '../models/Scene';
-import Container from '../models/Container';
 import BodyCopy from '../models/BodyCopy';
 import SceneAction, { SCENE_ACTIONS } from '../models/SceneAction';
 
@@ -43,13 +42,11 @@ export default new class SceneStore extends ReduceStore {
                         });
                     })
                 break;
-            case SCENE_ACTIONS.LOOT_CONTAINER:
-                    // Open the trading view.
-                    // TODO: Create an overarching controller for all of these sub-views and modals
             case 'SCENE_PROCESS_COMPLETED':
                 s = action.state;
                 this.saveState(s);
                 break;
+            default:
         }
         return s;
     }

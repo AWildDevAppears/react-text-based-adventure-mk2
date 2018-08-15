@@ -2,7 +2,7 @@ import { ReduceStore } from 'flux/utils';
 
 import DBService from '../services/DBService';
 import Dispatcher from './Dispatcher';
-import SceneAction, { SCENE_ACTIONS } from '../models/SceneAction';
+import { SCENE_ACTIONS } from '../models/SceneAction';
 
 const ZONE_ACTIONS = {
     CHANGE_ZONE: 'CHANGE_ZONE',
@@ -73,6 +73,7 @@ export default new class ZoneStore extends ReduceStore {
             case SCENE_ACTIONS.SET_ZONE_VARIABLE:
                 s.variables[action.params.prop] = action.params.value;
                 break;
+            default:
         }
 
         this.saveState(s);

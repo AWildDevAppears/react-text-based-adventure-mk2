@@ -28,6 +28,7 @@ export default class TradingStore extends ReduceStore {
                         s.isMonetaryTrade = false;
                     });
                 break;
+            default:
         }
         return s;
     }

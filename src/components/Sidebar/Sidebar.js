@@ -15,17 +15,17 @@ export default class Sidebar extends Component {
                 <div className="button--bar">
                     <FloatingActionButton
                         icon="user"
-                        role="character"
+                        label="character"
                         onClick={ this.props.onCharacterButtonPressed }
                     />
                     <FloatingActionButton
                         icon="box-open"
-                        role="inventory"
+                        label="inventory"
                         onClick={ this.props.onInventoryButtonPressed }
                     />
                     <FloatingActionButton
                         icon="cog"
-                        role="settings"
+                        label="settings"
                         onClick={ this.props.onSettingsButtonPressed }
                     />
                 </div>

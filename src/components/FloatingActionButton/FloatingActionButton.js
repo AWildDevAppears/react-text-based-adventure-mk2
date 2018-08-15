@@ -12,7 +12,7 @@ export default class FloatingActionButton extends Component {
             <button
                 className={ this.state.className }
                 onClick={ this.props.onClick }
-                aria-label={ this.props.role }
+                aria-label={ this.props.label }
             >
                 { this.props.text }
             </button>);
