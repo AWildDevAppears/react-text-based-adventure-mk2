@@ -27,7 +27,7 @@ export default new class ManagerStore extends ReduceStore {
 
         switch(action.type) {
             // TODO: Show the trade view for monetary trades
-            case SCENE_ACTIONS.LOOT_CONTAINER:
+            case 'TRADING_STORE_HAS_DATA':
                 s.view = MANAGER_VIEWS.SHOW_TRADE_VIEW;
                 break;
             case MANAGER_VIEWS.SHOW_INVENTORY:

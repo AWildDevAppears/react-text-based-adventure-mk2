@@ -32,8 +32,18 @@ export default new class TradingStore extends ReduceStore {
                         container.buildUp();
                         s.trader = container;
                         s.isMonetaryTrade = false;
+
+                        Dispatcher.dispatch({
+                            type: 'TRADING_STORE_HAS_DATA',
+                            state: s,
+                        });
                     });
                 break;
+            case 'TRADING_STORE_HAS_DATA':
+                s = {
+                    ...s,
+                    ...action.state,
+                };
             default:
         }
         return s;
