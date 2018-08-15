@@ -4,6 +4,9 @@ import DBService from '../services/DBService';
 import APIService from '../services/APIService';
 import Dispatcher from './Dispatcher';
 
+import { SCENE_ACTIONS } from '../models/SceneAction';
+import  Container from '../models/Container';
+
 export default class TradingStore extends ReduceStore {
     constructor() {
         super(Dispatcher);
@@ -35,20 +38,20 @@ export default class TradingStore extends ReduceStore {
 
     getContianer(id) {
         return DBService.read('Container', id)
-            .then((contianer) => {
+            .then((container) => {
                 if (!container) {
                     return Promise.reject();
                 }
-                return contianer;
+                return container;
             })
             .catch(() => {
                 return APIService.client.getEntry(id)
                     .then((containerObject) => {
-                        let contiainer = new Container();
+                        let container = new Container();
 
-                        contianer.id = contianerObject.sys.id;
-                        contianer.name = containerObject.fields.identifier;
-                        contianer.maxItems = containerObject.fields.maxItems;
+                        container.id = containerObject.sys.id;
+                        container.name = containerObject.fields.identifier;
+                        container.maxItems = containerObject.fields.maxItems;
                         container.minItems = containerObject.fields.minItems;
                         container.refills = containerObject.fields.refills;
                         container.possibleItems = containerObject.fields.possibleItems

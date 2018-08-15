@@ -15,6 +15,7 @@ import Character from './models/Character';
 
 import './css/index.css'
 import Dispatcher from './store/Dispatcher';
+import { TradeView } from './components/TradeView/TradeView';
 
 class App extends Component {
     state = {
@@ -64,7 +65,7 @@ class App extends Component {
                 </Modal>
 
                 <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_TRADE_VIEW }>
-                    <h1>Trade view</h1>
+                    <TradeView />
                 </Modal>
             </div>
         );
