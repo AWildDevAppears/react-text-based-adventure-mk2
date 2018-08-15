@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container } from 'flux/utils';
 
 import Sidebar from './components/Sidebar/Sidebar';
 import SceneViewer from './components/SceneViewer/SceneViewer';
@@ -8,19 +9,29 @@ import DBService from './services/DBService';
 import APIService from './services/APIService';
 
 import { ZoneActions } from './store/ZoneStore';
+import ManagerStore, { MANAGER_VIEWS } from './store/ManagerStore';
 
 import Character from './models/Character';
 
 import './css/index.css'
+import Dispatcher from './store/Dispatcher';
 
 class App extends Component {
     state = {
         location: undefined,
         zone: '',
         player: new Character(),
-        showInventory: false,
-        showOptions: false,
-        showCharacter: false,
+    }
+
+    static getStores() {
+        return [ManagerStore];
+    }
+
+    static calculateState(prevState) {
+        return {
+            ...prevState,
+            mgr: ManagerStore.getState(),
+        };
     }
 
     render() {
@@ -35,21 +46,25 @@ class App extends Component {
                     onSettingsButtonPressed={ this.onSettingsButtonPressed }
 
                 />
+
                 <SceneViewer
                     location={ this.state.location }
                 />
 
-
-                <Modal visible={ this.state.showInventory }>
+                <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_INVENTORY }>
                     <h1>Inventory</h1>
                 </Modal>
 
-                <Modal visible={ this.state.showCharacter }>
+                <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_CHARACTER }>
                     <h1>Character</h1>
                 </Modal>
 
-                <Modal visible={ this.state.showOptions }>
-                    <h1>Optionsh</h1>
+                <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_SETTINGS }>
+                    <h1>Options</h1>
+                </Modal>
+
+                <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_TRADE_VIEW }>
+                    <h1>Trade view</h1>
                 </Modal>
             </div>
         );
@@ -78,27 +93,24 @@ class App extends Component {
         });
     }
 
-
-    // TODO: Move these to ManagerStore
     onInventoryButtonPressed = () => {
-        this.setState({
-            showInventory: true,
+        Dispatcher.dispatch({
+            type: MANAGER_VIEWS.SHOW_INVENTORY,
         });
     }
 
-    // TODO: Move these to ManagerStore
     onCharacterButtonPressed = () => {
-        this.setState({
-            showCharacter: true,
+        Dispatcher.dispatch({
+            type: MANAGER_VIEWS.SHOW_CHARACTER,
         });
     }
 
-    // TODO: Move these to ManagerStore
     onSettingsButtonPressed = () => {
-        this.setState({
-            showOptions: true,
+        Dispatcher.dispatch({
+            type: MANAGER_VIEWS.SHOW_SETTINGS,
         });
     }
 }
 
-export default App;
+const app = Container.create(App);
+export default app;

@@ -2,6 +2,8 @@ import { ReduceStore } from 'flux/utils';
 
 import Dispatcher from './Dispatcher';
 
+import { SCENE_ACTIONS } from '../models/SceneAction';
+
 export const MANAGER_VIEWS = {
     SHOW_SCENE: 'SHOW_SCENE',
     SHOW_INVENTORY: 'SHOW_INVENTORY',
@@ -10,7 +12,7 @@ export const MANAGER_VIEWS = {
     SHOW_TRADE_VIEW: 'SHOW_TRADE_VIEW',
 }
 
-export default class ManagerStore extends ReduceStore {
+export default new class ManagerStore extends ReduceStore {
     constructor() {
         super(Dispatcher);
     }
@@ -28,6 +30,9 @@ export default class ManagerStore extends ReduceStore {
             case MANAGER_VIEWS.SHOW_TRADE_VIEW:
                 s.view = MANAGER_VIEWS.SHOW_TRADE_VIEW;
                 break;
+            case SCENE_ACTIONS.LOOT_CONTAINER:
+                s.view = MANAGER_VIEWS.SHOW_TRADE_VIEW;
+                break;
             case MANAGER_VIEWS.SHOW_INVENTORY:
                 s.view = MANAGER_VIEWS.SHOW_INVENTORY;
                 break;
@@ -38,13 +43,14 @@ export default class ManagerStore extends ReduceStore {
                 s.view = MANAGER_VIEWS.SHOW_SETTINGS;
                 break;
             case MANAGER_VIEWS.SHOW_SCENE:
-                s.view = SHOW_SCENE;
+                s.view = MANAGER_VIEWS.SHOW_SCENE;
                 break;
             case 'SCENE_PROCESS_COMPLETED':
-                s.view = SHOW_SCENE;
+                s.view = MANAGER_VIEWS.SHOW_SCENE;
                 break;
+            default:
         }
 
         return s;
     }
-}
+}();
