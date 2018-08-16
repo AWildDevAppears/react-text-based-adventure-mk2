@@ -10,7 +10,7 @@ export default class Inventory {
         let items = [];
 
         for (let k in this.store) {
-            items = items.concat(this.getItemsUnstacked(k));
+            items = items.concat(this._getItemsUnstacked(k));
         }
 
         return items;
@@ -23,7 +23,7 @@ export default class Inventory {
 
         let items = [];
         keys.forEach((key) => {
-            items = items.concat(this.getItemsUnstacked(key));
+            items = items.concat(this._getItemsUnstacked(key));
         });
 
         return items;
@@ -50,7 +50,8 @@ export default class Inventory {
         return !!(this.store[key] && this.store[key].id);
     }
 
-    getItemsUnstacked(key) {
+
+    _getItemsUnstacked(key) {
         let items = [];
         if (this.store[key]) {
             for (let i = 0; i < this.store[key].count; i++) {
