@@ -56,9 +56,34 @@ export class TradeView extends Component {
     }
 
     createInventoryCell = (item, index) => {
+        let icon = '';
+
+        switch (item.type) {
+            case 'weaponMelee':
+                icon = (<i class="fas fa-screwdriver"></i>);
+                break;
+            case 'weaponRanged':
+                icon = (<i class="fas fa-bullseye"></i>);
+                break;
+            default:
+                icon = (<i class="fas fa-paperclip"></i>);
+                break;
+        }
+
         return (
-            <div key={index}>
-                I am Item
+            <div className="item" key={ index }>
+                <h4 className="item__name">
+                    { icon }
+                    { item.name }
+                </h4>
+                <div className="item__value">
+                    <i class="fas fa-money-bill"></i>
+                    { item.value }
+                </div>
+                <div className="item__weight">
+                    <i class="fas fa-weight-hanging"></i>
+                    { item.weight }
+                </div>
             </div>
         );
     }
