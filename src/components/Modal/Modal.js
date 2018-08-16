@@ -16,7 +16,7 @@ export default class Modal extends Component {
         return (
             <div className="modal">
                 <div className="modal__content">
-                    <button className="modal__close fa fas fa-times fa-lg" label="close" onClick={ this.onDismiss }></button>
+                    <button className="modal__close fas fa-times fa-lg" label="close" onClick={ this.onDismiss }></button>
                     { this.props.children }
                 </div>
             </div>
