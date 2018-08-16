@@ -1,4 +1,5 @@
 import Inventory from "./Inventory";
+import DataBuilderService from "../services/DataBuilderService";
 
 export default class Container {
 
@@ -12,11 +13,19 @@ export default class Container {
     inventory = new Inventory();
 
     buildUp() {
-        let itemCount = Math.floor(Math.random() * (this.maxItems - this.minItems + 1));
-
-        while (this.possibleItems.length < itemCount) {
-            this.inventory.putItems(this.possibleItems[Math.floor(Math.random() * (this.possibleItems.length + 1))]);
+        if (this.inventory.maxItems === 0) {
+            this.inventory.maxItems = Math.floor(Math.random() * (this.maxItems - this.minItems + 1) + this.minItems);;
         }
+
+        let promises = [];
+
+        while (promises.length <= this.inventory.maxItems - this.inventory.length) {
+            promises.push(DataBuilderService.getItem(this.possibleItems[Math.floor(Math.random() * this.possibleItems.length)]));
+        }
+
+        return Promise.all(promises).then((...items) => {
+            return this.inventory.putItems(items);
+        });
     }
 
     tearDown() {
