@@ -50,6 +50,21 @@ export default class Inventory {
         return !!(this.store[key] && this.store[key].id);
     }
 
+    removeItems(items) {
+        if (!Array.isArray(items)) {
+            items = [items];
+        }
+
+        items.forEach((item) => {
+            if (this.store[item.id]) {
+                if (this.store[item.id].count === 1) {
+                    delete this.store[item.id];
+                } else {
+                    this.store[item.id].count--;
+                }
+            }
+        });
+    }
 
     _getItemsUnstacked(key) {
         let items = [];
