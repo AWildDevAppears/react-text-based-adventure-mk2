@@ -10,10 +10,12 @@
 .modal__content {
     background-color: #fff;
     display: flex;
+    flex-direction: column;
     margin: auto;
     max-height: 70vh;
     min-height: 200px;
     padding: 15px;
+    position: relative;
     width: 60vw;
 }
 
@@ -24,4 +26,12 @@
 
 .modal__body {
     flex: 1 0 0;
+}
+
+.modal__close {
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 15px;
 }
