@@ -5,6 +5,7 @@ import TradingStore from '../../store/TradingStore';
 
 import Trader from '../../models/Trader';
 
+import './tradingView.css';
 
 export class TradeView extends Component {
     state = {

@@ -23,8 +23,6 @@ export default new class TradingStore extends ReduceStore {
     reduce(state, action) {
         let s = { ...state };
 
-
-
         switch(action.type) {
             case SCENE_ACTIONS.LOOT_CONTAINER:
                 this.getContianer(action.params.container)
