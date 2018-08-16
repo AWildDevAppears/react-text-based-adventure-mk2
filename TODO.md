@@ -7,6 +7,7 @@
 - As a user I want to be able to see my locations scene
 - As a user I want to see at least one scene for all of the rooms in my first house
 - As a user I want to be able to perform actions in a scene
+- As a user I want to be able to loot a container
 
 ## Next (Max 5)
 
@@ -24,7 +25,6 @@
 - As a user I want a more in depth overview of my character
 - As a user I want to equip weapons and armors to my character
 - As a user I want to create a character
-- As a user I want to be able to loot a container
 - As a user I want to trade with a merchant
 - As a user I want to be able to play blackjack as a minigame
 - As a user I want to be able to move from one zone to another
