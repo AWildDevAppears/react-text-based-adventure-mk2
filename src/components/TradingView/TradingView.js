@@ -3,13 +3,14 @@ import { Container } from 'flux/utils';
 
 import TradingStore from '../../store/TradingStore';
 
+import Dispatcher from '../../store/Dispatcher';
 import Trader from '../../models/Trader';
 
 import './tradingView.css';
 
 export class TradeView extends Component {
     state = {
-        player: undefined,
+        player: new Trader(this.props.player),
         trader: undefined,
         isMonetaryTrade: false,
     }
@@ -19,20 +20,15 @@ export class TradeView extends Component {
     }
 
     static calculateState(prevState) {
-        let store = TradingStore.getState();
-
         return {
             ...prevState,
-            isMonetaryTrade: store.isMonetaryTrade,
-
-            trader: new Trader(store.trader),
+            ...TradingStore.getState(),
         };
     }
     render() {
-        let player = new Trader(this.props.player);
         return (
             <div className="trade">
-                { this.showProfileFor(player, 'left') }
+                { this.showProfileFor(this.state.player, 'left') }
                 { this.showProfileFor(this.state.trader, 'right') }
             </div>
         );
@@ -56,33 +52,33 @@ export class TradeView extends Component {
     }
 
     createInventoryCellsFor = (trader, side) => {
-        trader.inventory ? trader.inventory.getAllItems().map((item, index) => {
+        return trader.inventory ? trader.inventory.getAllItems().map((item, index) => {
             let icon = '';
 
             switch (item.type) {
                 case 'weaponMelee':
-                    icon = (<i class="fas fa-screwdriver"></i>);
+                    icon = (<i className="fas fa-screwdriver"></i>);
                     break;
                 case 'weaponRanged':
-                    icon = (<i class="fas fa-bullseye"></i>);
+                    icon = (<i className="fas fa-bullseye"></i>);
                     break;
                 default:
-                    icon = (<i class="fas fa-paperclip"></i>);
+                    icon = (<i className="fas fa-paperclip"></i>);
                     break;
             }
 
             return (
-                <div className="item" key={ index } onClick={ this.transferItem(item, side) }>
+                <div className="item" key={ index } onClick={() => this.transferItem(item, side) }>
                     <h4 className="item__name">
                         { icon }
                         { item.name }
                     </h4>
                     <div className="item__value">
-                        <i class="fas fa-money-bill"></i>
+                        <i className="fas fa-money-bill"></i>
                         { item.value }
                     </div>
                     <div className="item__weight">
-                        <i class="fas fa-weight-hanging"></i>
+                        <i className="fas fa-weight-hanging"></i>
                         { item.weight }
                     </div>
                 </div>
@@ -92,15 +88,17 @@ export class TradeView extends Component {
 
     transferItem = (item, side) => {
         if (side == 'left') {
-            // remove from player
-            // Add to trader
-            // Perform monetary swap
-            // commit change?
+            Dispatcher.dispatch({
+                type: 'MOVE_ITEM_TO_TRADER',
+                player: this.state.player,
+                item,
+            });
         } else {
-            // remove from trader
-            // Add to player
-            // Perform monetary swap
-            // commit change?
+            Dispatcher.dispatch({
+                type: 'MOVE_ITEM_TO_PLAYER',
+                player: this.state.player,
+                item,
+            });
         }
     }
 }
