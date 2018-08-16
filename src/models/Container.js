@@ -23,9 +23,7 @@ export default class Container {
             promises.push(DataBuilderService.getItem(this.possibleItems[Math.floor(Math.random() * this.possibleItems.length)]));
         }
 
-        return Promise.all(promises).then((...items) => {
-            return this.inventory.putItems(items);
-        });
+        return Promise.all(promises).then((items) => this.inventory.putItems(items));
     }
 
     tearDown() {
