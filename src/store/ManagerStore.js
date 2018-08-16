@@ -2,8 +2,6 @@ import { ReduceStore } from 'flux/utils';
 
 import Dispatcher from './Dispatcher';
 
-import { SCENE_ACTIONS } from '../models/SceneAction';
-
 export const MANAGER_VIEWS = {
     SHOW_SCENE: 'SHOW_SCENE',
     SHOW_INVENTORY: 'SHOW_INVENTORY',

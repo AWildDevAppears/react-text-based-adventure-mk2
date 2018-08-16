@@ -2,8 +2,6 @@ import { ReduceStore } from 'flux/utils';
 
 import Dispatcher from './Dispatcher';
 
-import DBService from '../services/DBService';
-
 import Scene from '../models/Scene';
 import { SCENE_ACTIONS } from '../models/SceneAction';
 import DataBuilderService from '../services/DataBuilderService';

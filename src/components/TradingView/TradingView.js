@@ -87,7 +87,7 @@ export class TradeView extends Component {
     }
 
     transferItem = (item, side) => {
-        if (side == 'left') {
+        if (side === 'left') {
             Dispatcher.dispatch({
                 type: 'MOVE_ITEM_TO_TRADER',
                 player: this.state.player,
