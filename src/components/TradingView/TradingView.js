@@ -55,9 +55,9 @@ export class TradeView extends Component {
         );
     }
 
-    createInventoryCell = (item) => {
+    createInventoryCell = (item, index) => {
         return (
-            <div>
+            <div key={index}>
                 I am Item
             </div>
         );
