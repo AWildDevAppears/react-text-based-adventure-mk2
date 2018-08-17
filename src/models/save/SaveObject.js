@@ -8,6 +8,8 @@ export default new class SaveObject {
     lastSaveDate = 0;
     cache = {};
     player = {};
+    location = {};
+    zone = '';
 
     load(id) {
         return DBService.read('Save', id).then((save) => {
@@ -19,5 +21,9 @@ export default new class SaveObject {
         }).then(() => {
             return CachedObject.replaceCache(this.cache);
         });
+    }
+
+    save(id) {
+        return DBService.update('Save', id, this);
     }
 }();

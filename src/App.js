@@ -16,21 +16,23 @@ import Dispatcher from './store/Dispatcher';
 import Character from './models/Character';
 
 import './css/index.css'
+import GameStateStore, { GAME_STATE_ACTIONS } from './store/GameStateStore';
 
 export class App extends Component {
     state = {
         location: undefined,
         zone: '',
-        player: new Character(),
+        player: undefined,
     }
 
     static getStores() {
-        return [ManagerStore];
+        return [ManagerStore, GameStateStore];
     }
 
     static calculateState(prevState) {
         return {
             ...prevState,
+            ...GameStateStore.getState(),
             mgr: ManagerStore.getState(),
         };
     }
@@ -73,14 +75,8 @@ export class App extends Component {
     }
 
     componentDidMount() {
-        APIService.getStartingLocation()
-        .then((res) => {
-            this.setState({
-                ...this.state,
-                ...res,
-            });
-
-            ZoneActions.changeZone(this.state.zone);
+        Dispatcher.dispatch({
+            type: GAME_STATE_ACTIONS.NEW_GAME,
         });
     }
 

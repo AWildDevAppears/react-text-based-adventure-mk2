@@ -16,7 +16,7 @@ export default new class DBService {
             upgradeDB.createObjectStore('Scene', { keyPath: 'id' });
             upgradeDB.createObjectStore('Container', { keyPath: 'id' });
 
-            upgradeDB.createObjectStore('Cache', { keyPath: 'id' })
+            upgradeDB.createObjectStore('Cache', { keyPath: 'id' });
         });
     }
 
