@@ -39,6 +39,7 @@ export class App extends Component {
         return (
             <div className="app">
                 <Sidebar
+                    date={ this.formatDate(this.state.mgr.dateTime) }
                     player={ this.state.player }
                     location={ this.state.location }
                     moveTo={ this.moveTo }
@@ -110,6 +111,14 @@ export class App extends Component {
         Dispatcher.dispatch({
             type: MANAGER_VIEWS.SHOW_SETTINGS,
         });
+    }
+
+    formatDate(date) {
+        return new Date(date).toLocaleString({
+           year: 'numeric',
+           month: 'long',
+           day: 'numeric'
+        })
     }
 }
 

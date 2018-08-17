@@ -10,6 +10,7 @@ export default class Sidebar extends Component {
     render() {
         return (
             <aside className="sidebar">
+                <div className="sidebar__block">{ this.props.date }</div>
                 <Profile for={ this.props.player }  />
 
                 <div className="button--bar">

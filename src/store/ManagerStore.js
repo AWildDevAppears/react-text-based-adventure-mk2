@@ -1,6 +1,7 @@
 import { ReduceStore } from 'flux/utils';
 
 import Dispatcher from './Dispatcher';
+import { SCENE_ACTIONS } from '../models/SceneAction';
 
 export const MANAGER_VIEWS = {
     SHOW_SCENE: 'SHOW_SCENE',
@@ -17,6 +18,7 @@ export default new class ManagerStore extends ReduceStore {
     getInitialState() {
         return {
             view: MANAGER_VIEWS.SHOW_SCENE,
+            dateTime: Date.now(), // TODO: replace with actual game start date
         }
     }
 
@@ -39,6 +41,11 @@ export default new class ManagerStore extends ReduceStore {
                 break;
             case MANAGER_VIEWS.SHOW_SCENE:
                 s.view = MANAGER_VIEWS.SHOW_SCENE;
+                break;
+            case SCENE_ACTIONS.CHANGE_SCENE:
+                if (action.incrementTime) {
+                    s.dateTime += action.incrementTime;
+                }
                 break;
             case 'SCENE_PROCESS_COMPLETED':
                 s.view = MANAGER_VIEWS.SHOW_SCENE;
