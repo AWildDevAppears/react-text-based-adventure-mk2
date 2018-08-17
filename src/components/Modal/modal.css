@@ -12,10 +12,10 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    height: 80vh;
+    height: calc(100vh - 30px);
     padding: 15px;
     position: relative;
-    width: 90vw;
+    width: calc(100vw - 30px);;
 }
 
 .modal__header,
