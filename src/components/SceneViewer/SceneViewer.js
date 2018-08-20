@@ -39,16 +39,14 @@ export class SceneViewer extends Component {
     }
 
     displayBody = () => {
-        console.log(this.props.location);
         if (!this.props.location.name) {
             return;
         }
-        //  // <h2>{ this.props.location.currentScene.heading }</h2>
-        // let body = this.state.scene.body;
+         <h2>{ this.props.location.currentScene.heading }</h2>
+        let body = this.props.location.currentScene.body;
 
-        // if (!body) return '';
-        // return body.map((ref) => ref.content);
-        return '';
+        if (!body) return '';
+        return body.map((ref) => ref.content);
     }
 
     displayActions = () => {

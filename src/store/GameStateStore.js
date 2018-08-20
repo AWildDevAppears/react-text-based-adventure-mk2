@@ -20,9 +20,13 @@ export default new class GameStateStore extends ReduceStore {
     }
 
     getInitialState() {
+        let player = new Character();
+        player.forename = 'Jennifer';
+        player.surname = 'Bloggs';
+
         return {
             ...SaveObject,
-            player: new Character(),
+            player,
         }
     }
 
