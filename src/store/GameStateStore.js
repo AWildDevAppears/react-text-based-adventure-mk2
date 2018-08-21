@@ -29,10 +29,6 @@ export const GAME_STATE_ACTIONS = {
         // scene = id
         // fixedTime = integer
         // incrementTime = integer
-    CHANGE_ZONE: 'actionChangeZone',
-        // zone = id
-        // fixedTime = integer
-        // incrementTime = integer
     LOOT_CONTAINER: 'actionLootContainer',
         // container = id
     TAKE_DAMAGE: 'actionTakeDamaqe',
@@ -47,6 +43,8 @@ export default new class GameStateStore extends ReduceStore {
 
     getInitialState() {
         let player = new Character();
+
+        // TODO: Replace this with the real player
         player.forename = 'Jennifer';
         player.surname = 'Bloggs';
 
@@ -86,6 +84,44 @@ export default new class GameStateStore extends ReduceStore {
                             state: s,
                         });
                     });
+                break;
+            case GAME_STATE_ACTIONS.SAVE_GAME:
+                // TODO:
+                break;
+            case GAME_STATE_ACTIONS.LOAD_GAME:
+                // TODO:
+                break;
+            case GAME_STATE_ACTIONS.GAME_CHANGE_ZONE:
+                // TODO:
+                break;
+            case GAME_STATE_ACTIONS.ZONE_ADD_VARIABLE:
+                // prop = string
+                // value = boolean | integer | string
+                // scene = id
+                let zone = { ...s.zone };
+                //TODO:
+
+
+                break;
+            case GAME_STATE_ACTIONS.CHANGE_SCENE:
+                let loc = { ...s.location};
+
+                DataBuilderService.getScene(action.params.scene)
+                    .then((scene) => {
+                        loc.currentScene = scene;
+                        s.location = loc;
+
+                        Dispatcher.dispatch({
+                            type: GAME_STATE_ACTIONS.GAME_STATE_HAS_DATA,
+                            state: s,
+                        });
+                    });
+                break;
+            case GAME_STATE_ACTIONS.LOOT_CONTAINER:
+                // TODO:
+                break;
+            case GAME_STATE_ACTIONS.TAKE_DAMAGE:
+                // TODO:
                 break;
             default:
         }
