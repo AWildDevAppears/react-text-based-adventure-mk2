@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'flux/utils';
 
-import SceneStore, { SceneActions } from '../../store/SceneStore';
-
 import Dispatcher from '../../store/Dispatcher';
 
 import './scene-viewer.css';
@@ -39,9 +37,7 @@ export class SceneViewer extends Component {
     }
 
     displayBody = () => {
-        if (!this.props.location.name) {
-            return;
-        }
+        if (!this.props.location.name) return;
          <h2>{ this.props.location.currentScene.heading }</h2>
         let body = this.props.location.currentScene.body;
 
@@ -50,7 +46,8 @@ export class SceneViewer extends Component {
     }
 
     displayActions = () => {
-        let actions = this.state.scene.actions;
+        if (!this.props.location.name) return;
+        let actions = this.props.location.currentScene.actions;
 
         if (!actions) return '';
         return actions.map((action) => {
@@ -61,18 +58,6 @@ export class SceneViewer extends Component {
     onSendAction = (action) => {
         Dispatcher.dispatch(action);
     }
-
-    static getStores() {
-        return [SceneStore];
-    }
-
-    static calculateState(prevState) {
-        return {
-            locationName: prevState ? prevState.locationName : '',
-            scene: SceneStore.getState(),
-        };
-    }
 }
 
-const sceneViewer = Container.create(SceneViewer);
-export default sceneViewer;
+export default SceneViewer;

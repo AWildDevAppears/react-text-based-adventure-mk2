@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 
 import './map.css';
+import Dispatcher from '../../store/Dispatcher';
+import { GAME_STATE_ACTIONS } from '../../store/GameStateStore';
 
 export default class Map extends Component {
     state = {
@@ -16,16 +18,16 @@ export default class Map extends Component {
 
         state.here = props.location;
         state.east = {
-            id: props.location.locationToEast,
+            'data-loc': props.location.locationToEast,
         };
         state.west = {
-            id: props.location.locationToWest,
+            'data-loc': props.location.locationToWest,
         };
         state.north = {
-            id: props.location.locationToNorth,
+            'data-loc': props.location.locationToNorth,
         };
         state.south = {
-            id: props.location.locationToSouth,
+            'data-loc': props.location.locationToSouth,
         };
 
         return state;
@@ -36,24 +38,20 @@ export default class Map extends Component {
             <div className="map">
                 <div className="map__segment">
                 </div>
-                <div className="map__segment" { ...this.state.north } onClick={this.moveLocation} tabIndex="1">
-                    <i className="fas fa-arrow-up"></i>
+                <div className="map__segment fas fa-arrow-up" { ...this.state.north } onClick={this.moveLocation} tabIndex="1">
                 </div>
                 <div className="map__segment">
                 </div>
-                <div className="map__segment" { ...this.state.west } onClick={this.moveLocation} tabIndex="1">
-                    <i className="fas fa-arrow-left"></i>
+                <div className="map__segment fas fa-arrow-left" { ...this.state.west } onClick={this.moveLocation} tabIndex="1">
                 </div>
                 <div className="map__segment">
                     { this.state.here.name }
                 </div>
-                <div className="map__segment" { ...this.state.east } onClick={this.moveLocation} tabIndex="1">
-                    <i className="fas fa-arrow-right"></i>
+                <div className="map__segment fas fa-arrow-right" { ...this.state.east } onClick={this.moveLocation} tabIndex="1">
                 </div>
                 <div className="map__segment">
                 </div>
-                <div className="map__segment" { ...this.state.south } onClick={this.moveLocation} tabIndex="1">
-                    <i className="fas fa-arrow-down"></i>
+                <div className="map__segment fas fa-arrow-down" { ...this.state.south } onClick={this.moveLocation} tabIndex="1">
                 </div>
                 <div className="map__segment">
                 </div>
@@ -62,24 +60,13 @@ export default class Map extends Component {
     }
 
     moveLocation = (e) => {
-        const id = e.target.getAttribute('id');
+        const id = e.target.getAttribute('data-loc');
+        if (!id) return;
 
-        if (id) {
-            this.props.moveTo(id);
-        }
+        Dispatcher.dispatch({
+           type: GAME_STATE_ACTIONS.GAME_CHANGE_LOCATION,
+           id,
+        });
 
-    }
-
-    displayLocation = (location, compassDirection)  => {
-        if (!location.name || location.name === location.id) {
-            return '';
-        }
-
-        return (
-            <Fragment>
-                    <span className="map__segment__name">{ compassDirection }</span>
-                    { location.name }
-            </Fragment>
-        );
     }
 }

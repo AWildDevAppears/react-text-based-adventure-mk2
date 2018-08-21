@@ -6,14 +6,8 @@ import SceneViewer from './components/SceneViewer/SceneViewer';
 import Modal from './components/Modal/Modal';
 import TradingView from './components/TradingView/TradingView';
 
-import DBService from './services/DBService';
-import APIService from './services/APIService';
-
-import { ZoneActions } from './store/ZoneStore';
 import ManagerStore, { MANAGER_VIEWS } from './store/ManagerStore';
 import Dispatcher from './store/Dispatcher';
-
-import Character from './models/Character';
 
 import './css/index.css'
 import GameStateStore, { GAME_STATE_ACTIONS } from './store/GameStateStore';
@@ -81,15 +75,6 @@ export class App extends Component {
     }
 
     // @Pragma mark - end @Override
-
-    moveTo = (id) => {
-        DBService.getLocationFromZone(this.state.zone, id).then((location) => {
-            this.setState({
-                ...this.state,
-                location,
-            });
-        });
-    }
 
     onInventoryButtonPressed = () => {
         Dispatcher.dispatch({

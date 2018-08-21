@@ -1,17 +1,43 @@
 import { ReduceStore } from 'flux/utils';
 
 import Dispatcher from './Dispatcher';
-import SaveObject from '../models/save/SaveObject';
-import { ZoneActions } from './ZoneStore';
+
 import APIService from '../services/APIService';
+
+import SaveObject from '../models/save/SaveObject';
 import Character from '../models/Character';
 import Location from '../models/Location';
+import DBService from '../services/DBService';
+import DataBuilderService from '../services/DataBuilderService';
 
 export const GAME_STATE_ACTIONS = {
     SAVE_GAME: 'SAVE_GAME',
     LOAD_GAME: 'LOAD_GAME',
     NEW_GAME: 'NEW_GAME',
     GAME_STATE_HAS_DATA: 'GAME_STATE_HAS_DATA',
+    GAME_CHANGE_LOCATION: 'CHANGE_LOCATION',
+
+    GAME_CHANGE_ZONE: 'actionChangeZone',
+        // zone = id
+        // fixedTime = integer
+        // incrementTime = integer
+    ZONE_ADD_VARIABLE: 'actionSetVariable',
+        // prop = string
+        // value = boolean | integer | string
+        // scene = id
+    CHANGE_SCENE: 'actionChangeScene',
+        // scene = id
+        // fixedTime = integer
+        // incrementTime = integer
+    CHANGE_ZONE: 'actionChangeZone',
+        // zone = id
+        // fixedTime = integer
+        // incrementTime = integer
+    LOOT_CONTAINER: 'actionLootContainer',
+        // container = id
+    TAKE_DAMAGE: 'actionTakeDamaqe',
+        // scene = id
+        // damage = number
 };
 
 export default new class GameStateStore extends ReduceStore {
@@ -39,8 +65,6 @@ export default new class GameStateStore extends ReduceStore {
                     .then((res) => {
                         s.zone = res.zone;
                         s.location = new Location(res.location);
-                        ZoneActions.changeZone(s.zone);
-
                         return s.location.getScene();
                     })
                     .then(() => {
@@ -53,9 +77,25 @@ export default new class GameStateStore extends ReduceStore {
             case GAME_STATE_ACTIONS.GAME_STATE_HAS_DATA:
                 s = action.state;
                 break;
+            case GAME_STATE_ACTIONS.GAME_CHANGE_LOCATION:
+                DataBuilderService.getLocation(action.id)
+                    .then((loc) => {
+                        s.location = loc;
+                        Dispatcher.dispatch({
+                            type: GAME_STATE_ACTIONS.GAME_STATE_HAS_DATA,
+                            state: s,
+                        });
+                    });
+                break;
             default:
         }
 
         return s;
+    }
+
+    updateZone(data) {
+        DBService.update('Zone', data.id, {
+            ...data,
+        });
     }
 }();

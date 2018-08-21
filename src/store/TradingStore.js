@@ -2,10 +2,10 @@ import { ReduceStore } from 'flux/utils';
 
 import Dispatcher from './Dispatcher';
 
-import { SCENE_ACTIONS } from '../models/SceneAction';
 import Trader from '../models/Trader';
 
 import DataBuilderService from '../services/DataBuilderService';
+import { GAME_STATE_ACTIONS } from './GameStateStore';
 
 export default new class TradingStore extends ReduceStore {
     constructor() {
@@ -23,7 +23,7 @@ export default new class TradingStore extends ReduceStore {
         let s = { ...state };
 
         switch(action.type) {
-            case SCENE_ACTIONS.LOOT_CONTAINER:
+            case GAME_STATE_ACTIONS.LOOT_CONTAINER:
                 this.getContainer(action.params.container)
                     .then((container) => {
                         container.buildUp().then(() => {

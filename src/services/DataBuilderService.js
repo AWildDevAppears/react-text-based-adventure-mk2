@@ -8,6 +8,7 @@ import Container from '../models/Container';
 import WeaponMelee from '../models/WeaponMelee';
 import Item from '../models/abstract/Item';
 import WeaponRanged from '../models/WeaponRanged';
+import Location from '../models/Location';
 
 export default new class DataBuilderService {
     getScene(id) {
@@ -140,5 +141,32 @@ export default new class DataBuilderService {
                         // TODO: Handle consumables and armor
                 }
             });
+    }
+
+    getLocation(id) {
+        return DBService.read('Location', id)
+            .then((location) => {
+                if (!location) {
+                    return Promise.reject();
+                }
+                return location;
+            })
+            .catch(() => {
+                return APIService.client.getEntry(id)
+                    .then((location) => {
+                        let loc = new Location(location);
+                        return DBService.update('Location', loc.id, location)
+                            .then(() => {
+                                return location;
+                            });
+                    });
+            })
+            .then((loc) => {
+                loc = new Location(loc);
+                return loc.getScene()
+                    .then(() => {
+                        return loc;
+                    });
+            })
     }
 }();
