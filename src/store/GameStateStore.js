@@ -132,9 +132,6 @@ export default new class GameStateStore extends ReduceStore {
                         });
                     });
                 break;
-            case GAME_STATE_ACTIONS.LOOT_CONTAINER:
-                // TODO:
-                break;
             case GAME_STATE_ACTIONS.TAKE_DAMAGE:
                 // TODO:
                 break;
