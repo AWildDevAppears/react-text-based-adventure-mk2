@@ -53,6 +53,7 @@ export default class Location {
     }
 
     getScene() {
+        // TODO: Check the zone for any variables, then see if any scenes should take precedence because of those variables.
         let sceneLink = this.scenes[Math.floor(Math.random() * this.scenes.length)];
         return DataBuilderService.getScene(sceneLink)
            .then((scene) => {
