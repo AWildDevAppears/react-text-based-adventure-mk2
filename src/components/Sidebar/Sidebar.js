@@ -10,23 +10,24 @@ export default class Sidebar extends Component {
     render() {
         return (
             <aside className="sidebar">
+                <div className="sidebar__block">{ this.props.date }</div>
                 <Profile for={ this.props.player }  />
 
                 <div className="button--bar">
                     <FloatingActionButton
                         icon="user"
-                        role="character"
-                        onClick={ this.onCharacterButtonPressed }
+                        label="character"
+                        onClick={ this.props.onCharacterButtonPressed }
                     />
                     <FloatingActionButton
                         icon="box-open"
-                        role="inventory"
-                        onClick={ this.onInventoryButtonPressed }
+                        label="inventory"
+                        onClick={ this.props.onInventoryButtonPressed }
                     />
                     <FloatingActionButton
                         icon="cog"
-                        role="settings"
-                        onClick={ this.onSettingsButtonPressed }
+                        label="settings"
+                        onClick={ this.props.onSettingsButtonPressed }
                     />
                 </div>
                 <Map
@@ -35,17 +36,5 @@ export default class Sidebar extends Component {
                 />
             </aside>
         );
-    }
-
-    onInventoryButtonPressed = () => {
-
-    }
-
-    onCharacterButtonPressed = () => {
-
-    }
-
-    onSettingsButtonPressed = () => {
-
     }
 }

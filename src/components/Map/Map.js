@@ -1,165 +1,72 @@
 import React, { Component, Fragment } from 'react';
 
-import APIService from '../../services/APIService';
-
 import './map.css';
+import Dispatcher from '../../store/Dispatcher';
+import { GAME_STATE_ACTIONS } from '../../store/GameStateStore';
 
 export default class Map extends Component {
-    static baseState = {
-        here: { name: '', id: '' },
-        north: { name: '', id: '' },
-        northwest: { name: '', id: '' },
-        northeast: { name: '', id: '' },
-        west: { name: '', id: '' },
-        east: { name: '', id: '' },
-        southwest: { name: '', id: '' },
-        south: { name: '', id: '' },
-        southeast: { name: '', id: '' },
+    state = {
+        here: {},
+        north: '',
+        south: '',
+        east: '',
+        west: '',
+    };
+
+    static getDerivedStateFromProps(props, state) {
+        if (!props.location || !props.location.name) return state;
+
+        state.here = props.location;
+        state.east = {
+            'data-loc': props.location.locationToEast,
+        };
+        state.west = {
+            'data-loc': props.location.locationToWest,
+        };
+        state.north = {
+            'data-loc': props.location.locationToNorth,
+        };
+        state.south = {
+            'data-loc': props.location.locationToSouth,
+        };
+
+        return state;
     }
 
-    state = { ...Map.baseState }
-
-    // TODO: Consider removing the names appearing in the sidebar
     render() {
         return (
             <div className="map">
-                <div className="map__segment" data-target={ this.state.northwest.id } onClick={this.moveLocation} tabIndex="1">
-                    { this.displayLocation(this.state.northwest, "North west") }
+                <div className="map__segment">
                 </div>
-                <div className="map__segment" data-target={ this.state.north.id } onClick={this.moveLocation} tabIndex="1">
-                    { this.displayLocation(this.state.north, "North") }
+                <div className="map__segment fas fa-arrow-up" { ...this.state.north } onClick={this.moveLocation} tabIndex="1">
                 </div>
-                <div className="map__segment" data-target={ this.state.northeast.id } onClick={this.moveLocation} tabIndex="1">
-                    { this.displayLocation(this.state.northeast, "North east") }
+                <div className="map__segment">
                 </div>
-                <div className="map__segment" data-target={ this.state.west.id } onClick={this.moveLocation} tabIndex="1">
-                    { this.displayLocation(this.state.west, "West") }
+                <div className="map__segment fas fa-arrow-left" { ...this.state.west } onClick={this.moveLocation} tabIndex="1">
                 </div>
                 <div className="map__segment">
                     { this.state.here.name }
                 </div>
-                <div className="map__segment" data-target={ this.state.east.id } onClick={this.moveLocation} tabIndex="1">
-                    { this.displayLocation(this.state.east, "East") }
+                <div className="map__segment fas fa-arrow-right" { ...this.state.east } onClick={this.moveLocation} tabIndex="1">
                 </div>
-                <div className="map__segment" data-target={ this.state.southwest.id } onClick={this.moveLocation} tabIndex="1">
-                    { this.displayLocation(this.state.southwest, "South West") }
+                <div className="map__segment">
                 </div>
-                <div className="map__segment" data-target={ this.state.south.id } onClick={this.moveLocation} tabIndex="1">
-                    { this.displayLocation(this.state.south, "South") }
+                <div className="map__segment fas fa-arrow-down" { ...this.state.south } onClick={this.moveLocation} tabIndex="1">
                 </div>
-                <div className="map__segment" data-target={ this.state.southeast.id } onClick={this.moveLocation} tabIndex="1">
-                    { this.displayLocation(this.state.southeast, "South East") }
+                <div className="map__segment">
                 </div>
             </div>
         )
     }
 
-    componentDidUpdate(_, prevState) {
-        const promises = [];
-
-        // TODO: Reduce requests here.
-        for (let k in this.state) {
-            const reference = this.state[k];
-
-            if (reference.id !== '' && reference.id === reference.name) {
-                promises.push(APIService.client.getEntry(reference.id).then(res => {
-                    return {
-                        [k]: {
-                            name: res.fields.name,
-                            id: reference.id,
-                        }
-                    };
-                }));
-            }
-        }
-
-        Promise.all(promises)
-            .then(res => {
-                if (res.length <= 0) return;
-
-                const updatedFields = Object.assign({}, ...res);
-
-                this.setState({
-                    ...this.state,
-                    ...updatedFields,
-                });
-            })
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        if (!props.location || !props.location.fields) return state;
-
-        if (state.here && props.location.sys.id === state.here.id) {
-            return state;
-        }
-
-        const locationFields = props.location.fields;
-
-        state = { ...Map.baseState };
-
-        if (!locationFields) {
-            return state;
-        }
-
-        state.here = {
-            id: props.location.sys.id,
-            name: props.location.sys.id,
-        };
-
-        if (locationFields.locationToNorth) {
-            state.north = {
-                id: locationFields.locationToNorth.sys.id,
-                name: locationFields.locationToNorth.sys.id,
-            };
-        }
-
-        if (locationFields.locationToSouth) {
-            state.south = {
-                id: locationFields.locationToSouth.sys.id,
-                name: locationFields.locationToSouth.sys.id,
-            };
-        }
-
-
-        if (locationFields.locationToEast) {
-            state.east = {
-                id: locationFields.locationToEast.sys.id,
-                name: locationFields.locationToEast.sys.id,
-            };
-        }
-
-        if (locationFields.locationToWest) {
-            state.west = {
-                id: locationFields.locationToWest.sys.id,
-                name: locationFields.locationToWest.sys.id,
-            };
-        }
-
-        return state;
-    }
-
-
-    // @Pragma mark - end @Override
-
     moveLocation = (e) => {
-        const id = e.target.getAttribute('data-target');
+        const id = e.target.getAttribute('data-loc');
+        if (!id) return;
 
-        if (id) {
-            this.props.moveTo(id);
-        }
+        Dispatcher.dispatch({
+           type: GAME_STATE_ACTIONS.GAME_CHANGE_LOCATION,
+           id,
+        });
 
-    }
-
-    displayLocation = (location, compassDirection)  => {
-        if (!location.name || location.name === location.id) {
-            return '';
-        }
-
-        return (
-            <Fragment>
-                    <span className="map__segment__name">{ compassDirection }</span>
-                    { location.name }
-            </Fragment>
-        );
     }
 }

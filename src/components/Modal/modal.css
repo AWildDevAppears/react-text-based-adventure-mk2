@@ -1,0 +1,36 @@
+.modal {
+    background-color: rgba(0, 0, 0, .3);
+    display: flex;
+    align-content: center;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+}
+
+.modal__content {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    height: calc(100vh - 30px);
+    padding: 15px;
+    position: relative;
+    width: calc(100vw - 30px);;
+}
+
+.modal__header,
+.modal__footer {
+    min-height: 50px;
+}
+
+.modal__body {
+    flex: 1 0 0;
+}
+
+.modal__close {
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 15px;
+}
