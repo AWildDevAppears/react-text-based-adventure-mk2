@@ -6,6 +6,13 @@ export default class Inventory {
         return this.getAllItems().length;
     }
 
+    constructor(obj) {
+        if (!obj) return;
+
+        this.store = obj.store;
+        this.maxItems = obj.maxItems;
+    }
+
     getAllItems() {
         let items = [];
 

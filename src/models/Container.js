@@ -1,5 +1,6 @@
 import Inventory from "./Inventory";
 import DataBuilderService from "../services/DataBuilderService";
+import DBService from "../services/DBService";
 
 export default class Container {
 
@@ -12,9 +13,27 @@ export default class Container {
 
     inventory = new Inventory();
 
+    constructor(obj) {
+        if (!obj) return;
+
+        this.id = obj.id;
+        this.name = obj.name;
+        this.maxItems = obj.maxItems;
+        this.minItems = obj.minItems;
+        this.refills = obj.refills;
+        this.possibleItems = obj.possibleItems;
+
+        // Pull through a cached version of this objects inventory
+        // as we've probably looted it before
+        this.inventory = new Inventory(obj.inventory);
+    }
+
     buildUp() {
+        // Don't rebuild the inventory if we don't have to
+        if (this.inventory.length > 0) return Promise.resolve();
+
         if (this.inventory.maxItems === 0) {
-            this.inventory.maxItems = Math.floor(Math.random() * (this.maxItems - this.minItems + 1) + this.minItems);;
+            this.inventory.maxItems = Math.floor(Math.random() * (this.maxItems - this.minItems + 1) + this.minItems);
         }
 
         let promises = [];
@@ -23,7 +42,9 @@ export default class Container {
             promises.push(DataBuilderService.getItem(this.possibleItems[Math.floor(Math.random() * this.possibleItems.length)]));
         }
 
-        return Promise.all(promises).then((items) => this.inventory.putItems(items));
+        return Promise.all(promises)
+            .then((items) => this.inventory.putItems(items))
+            .then(() => DBService.update("Container", this.id, this));
     }
 
     tearDown() {

@@ -69,7 +69,7 @@ export default new class DataBuilderService {
                 if (!container) {
                     return Promise.reject();
                 }
-                return container;
+                return new Container(container);
             })
             .catch(() => {
                 let container = new Container();
