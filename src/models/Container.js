@@ -13,6 +13,7 @@ export default class Container {
     inventory = new Inventory();
 
     buildUp() {
+        // TODO: Refactor this, maxItems does not describe this number
         if (this.inventory.maxItems === 0) {
             this.inventory.maxItems = Math.floor(Math.random() * (this.maxItems - this.minItems + 1) + this.minItems);;
         }
