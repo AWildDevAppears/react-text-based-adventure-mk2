@@ -7,6 +7,7 @@ import Dispatcher from '../../store/Dispatcher';
 import Trader from '../../models/Trader';
 
 import './tradingView.css';
+import ItemCard from '../ItemCard/ItemCard';
 
 export class TradeView extends Component {
     state = {
@@ -52,38 +53,9 @@ export class TradeView extends Component {
     }
 
     createInventoryCellsFor = (trader, side) => {
-        return trader.inventory ? trader.inventory.getAllItems().map((item, index) => {
-            let icon = '';
-
-            switch (item.type) {
-                case 'weaponMelee':
-                    icon = (<i className="fas fa-screwdriver"></i>);
-                    break;
-                case 'weaponRanged':
-                    icon = (<i className="fas fa-bullseye"></i>);
-                    break;
-                default:
-                    icon = (<i className="fas fa-paperclip"></i>);
-                    break;
-            }
-
-            return (
-                <div className="item" key={ index } onClick={() => this.transferItem(item, side) }>
-                    <h4 className="item__name">
-                        { icon }
-                        { item.name }
-                    </h4>
-                    <div className="item__value">
-                        <i className="fas fa-money-bill"></i>
-                        { item.value }
-                    </div>
-                    <div className="item__weight">
-                        <i className="fas fa-weight-hanging"></i>
-                        { item.weight }
-                    </div>
-                </div>
-            )
-        }) : [];
+        return trader.inventory ? trader.inventory.getAllItems().map(
+            (item, index) => (<ItemCard key={index} for={item} onClick={() => this.transferItem(item, side) }></ItemCard>)
+        ) : [];
     }
 
     transferItem = (item, side) => {

@@ -11,6 +11,7 @@ import Dispatcher from './store/Dispatcher';
 
 import './css/index.css'
 import GameStateStore, { GAME_STATE_ACTIONS } from './store/GameStateStore';
+import ItemCard from './components/ItemCard/ItemCard';
 
 export class App extends Component {
     state = {
@@ -51,6 +52,7 @@ export class App extends Component {
 
                 <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_INVENTORY }>
                     <h1>Inventory</h1>
+                    { this.state.player.inventory.getAllItems().map((item, index) => <ItemCard key={index} for={item}></ItemCard>) }
                 </Modal>
 
                 <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_CHARACTER }>
