@@ -1,0 +1,10 @@
+{
+    "view.inventory": "Q",
+    "view.character": "C",
+    "view.settings": "Esc",
+    "movement.up": "W",
+    "movement.down": "S",
+    "movement.left": "A",
+    "movement.right": "D",
+    "interact": "E"
+}
