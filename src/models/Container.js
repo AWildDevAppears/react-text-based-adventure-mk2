@@ -32,6 +32,7 @@ export default class Container {
         // Don't rebuild the inventory if we don't have to
         if (this.inventory.length > 0) return Promise.resolve();
 
+        // TODO: Refactor this, maxItems does not describe this number
         if (this.inventory.maxItems === 0) {
             this.inventory.maxItems = Math.floor(Math.random() * (this.maxItems - this.minItems + 1) + this.minItems);
         }

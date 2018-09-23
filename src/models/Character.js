@@ -21,6 +21,21 @@ export default class Character extends Pawn {
 
     money = 0;
 
+    // Stats are between 0 - 20
+    stats = {
+        awareness: 0, // How likely you are to notice things
+        charisma: 0, // How well you will do in speech checks
+        dexterity: 0, // How fast you are / chance to dodge
+        endurance: 0, // How long you can maintain abilities
+        intelligence: 0, // Crafting / salvage chance
+        luck: 0, // Boosts everything in a minor way
+        strength: 0, // Increases damage output
+        resilience: 0, // Decreases damage taken
+    }
+
+    // An array of all of the modifiers that change our player in some way (e.g. Buffs and De-buffs)
+    modifiers = [];
+
     get name() {
         return `${this.forename} ${this.surname}`;
     }

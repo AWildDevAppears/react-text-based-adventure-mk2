@@ -1,0 +1,108 @@
+Sep 21 13:30:12.376 ERRO Ensure that you have "[1m[2mwasm-bindgen[0m" as a dependency in your Cargo.toml file:
+[dependencies]
+wasm-bindgen = "0.2"
+Sep 21 13:30:38.386 ERRO crate-type must be cdylib to compile to wasm32-unknown-unknown. Add the following to your Cargo.toml file:
+
+[lib]
+crate-type = ["cdylib"]
+Sep 21 13:31:28.606 ERRO Compilation of your program failed. stderr:
+
+error: failed to parse manifest at `/Users/joshburgess/Code/projects/react-components/wasm/Cargo.toml`
+
+Caused by:
+  can't find library `wasm`, rename file to `src/lib.rs` or specify lib.path
+
+Sep 21 13:36:08.189 ERRO Compilation of your program failed. stderr:
+
+    Updating crates.io index
+ Downloading wasm-bindgen v0.2.21
+ Downloading wasm-bindgen-macro v0.2.21
+ Downloading wasm-bindgen-macro-support v0.2.21
+ Downloading wasm-bindgen-shared v0.2.21
+ Downloading wasm-bindgen-backend v0.2.21
+   Compiling proc-macro2 v0.4.19
+   Compiling unicode-xid v0.1.0
+   Compiling ryu v0.2.6
+   Compiling serde v1.0.79
+   Compiling version_check v0.1.4
+   Compiling wasm-bindgen-shared v0.2.21
+   Compiling cfg-if v0.1.5
+   Compiling itoa v0.4.3
+   Compiling wasm-bindgen v0.2.21
+   Compiling log v0.4.5
+   Compiling lazy_static v1.1.0
+   Compiling quote v0.6.8
+   Compiling syn v0.15.4
+   Compiling serde_json v1.0.28
+   Compiling serde_derive v1.0.79
+   Compiling wasm-bindgen-backend v0.2.21
+   Compiling wasm-bindgen-macro-support v0.2.21
+   Compiling wasm-bindgen-macro v0.2.21
+   Compiling wasm v0.1.0 (/Users/joshburgess/Code/projects/react-components/wasm)
+error[E0583]: file not found for module `utils`
+ --> src/lib.rs:4:5
+  |
+4 | mod utils;
+  |     ^^^^^
+  |
+  = help: name the file either utils.rs or utils/mod.rs inside the directory "src"
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0583`.
+error: Could not compile `wasm`.
+
+To learn more, run the command again with --verbose.
+
+Sep 21 14:58:51.976 ERRO Compilation of your program failed. stderr:
+
+   Compiling wasm v0.1.0 (/Users/joshburgess/Code/projects/react-components/wasm)
+error[E0583]: file not found for module `utils`
+ --> src/lib.rs:4:5
+  |
+4 | mod utils;
+  |     ^^^^^
+  |
+  = help: name the file either utils.rs or utils/mod.rs inside the directory "src"
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0583`.
+error: Could not compile `wasm`.
+
+To learn more, run the command again with --verbose.
+
+Sep 21 14:59:00.740 ERRO Compilation of your program failed. stderr:
+
+   Compiling wasm v0.1.0 (/Users/joshburgess/Code/projects/react-components/wasm)
+error[E0463]: can't find crate for `cfg_if`
+ --> src/lib.rs:1:1
+  |
+1 | extern crate cfg_if;
+  | ^^^^^^^^^^^^^^^^^^^^ can't find crate
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0463`.
+error: Could not compile `wasm`.
+
+To learn more, run the command again with --verbose.
+
+Sep 21 16:28:18.542 ERRO Compilation of your program failed. stderr:
+
+   Compiling wasm v0.1.0 (/Users/joshburgess/Code/projects/react-components/wasm)
+error[E0583]: file not found for module `utils`
+ --> src/lib.rs:4:5
+  |
+4 | mod utils;
+  |     ^^^^^
+  |
+  = help: name the file either utils.rs or utils/mod.rs inside the directory "src"
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0583`.
+error: Could not compile `wasm`.
+
+To learn more, run the command again with --verbose.
+

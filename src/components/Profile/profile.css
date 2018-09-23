@@ -1,7 +1,25 @@
 .profile {
     background-color: gray;
-    padding: 15px;
 }
 
-/* .profile__avatar {
-} */
+.profile__status {
+    padding: 10px;
+}
+
+.profile__stats-list {
+    background-color: #CCC;
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+}
+
+.profile__stats__item {
+    padding: 5px 0;
+    display: flex;
+    text-transform: capitalize;
+}
+
+.profile__stats__key {
+    flex: 1 0 0;
+    padding-right: 10px;
+}

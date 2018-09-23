@@ -1,8 +1,5 @@
 import idb from 'idb';
 
-import APIService from './APIService';
-import Dispatcher from '../store/Dispatcher';
-
 export default new class DBService {
     NAME = 'com.awilddevappears.textBasedAdventure';
     dbPromise;
