@@ -12,6 +12,8 @@ import Dispatcher from './store/Dispatcher';
 import './css/index.css'
 import GameStateStore, { GAME_STATE_ACTIONS } from './store/GameStateStore';
 import ItemCard from './components/ItemCard/ItemCard';
+import StatusBlock from './components/StatusBlock/StatusBlock';
+
 
 export class App extends Component {
     state = {
@@ -35,6 +37,8 @@ export class App extends Component {
     render() {
         return (
             <div className="app">
+                <StatusBlock for={ this.state.player }></StatusBlock>
+
                 <Sidebar
                     date={ this.formatDate(this.state.mgr.dateTime) }
                     player={ this.state.player }
