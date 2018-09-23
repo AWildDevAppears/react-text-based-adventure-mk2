@@ -31,16 +31,16 @@ export default class Profile extends Component {
                 <StatusBar
                     now={ this.state.stamina }
                     max={ this.state.staminaMax }
-                    statusColor="blue"
-                    backgroundColor="yellow"
+                    statusColor="yellow"
+                    backgroundColor="orange"
                     modifier="status-bar--stamina"
                 />
 
                 <StatusBar
                     now={ this.state.health }
                     max={ this.state.healthMax }
-                    statusColor="green"
-                    backgroundColor="red"
+                    statusColor="red"
+                    backgroundColor="maroon"
                     modifier="status-bar--health"
                 />
             </div>
