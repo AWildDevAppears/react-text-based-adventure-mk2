@@ -9,6 +9,7 @@ import Character from '../models/Character';
 import Location from '../models/Location';
 import DBService from '../services/DBService';
 import DataBuilderService from '../services/DataBuilderService';
+import Scene from '../models/Scene';
 
 export const GAME_STATE_ACTIONS = {
     SAVE_GAME: 'SAVE_GAME',
@@ -64,12 +65,11 @@ export default new class GameStateStore extends ReduceStore {
             case GAME_STATE_ACTIONS.NEW_GAME:
                 APIService.getStartingLocation()
                     .then((res) => {
-                        s.zone = { id: res.zone };
-                        console.log(res.zone)
+                        s.zone = res.zone;
                         s.location = new Location(res.location);
 
                         return DBService.update('Zone', s.zone.id, s.zone)
-                            .then(() => s.location.getScene());
+                            .then(() => s.location.getScene(s.zone));
                     })
                     .then(() => {
                         Dispatcher.dispatch({
@@ -85,11 +85,14 @@ export default new class GameStateStore extends ReduceStore {
                 DataBuilderService.getLocation(action.id)
                     .then((loc) => {
                         s.location = loc;
+                        return s.location.getScene(s.zone);
+                    })
+                    .then(() => {
                         Dispatcher.dispatch({
                             type: GAME_STATE_ACTIONS.GAME_STATE_HAS_DATA,
                             state: s,
                         });
-                    });
+                    })
                 break;
             case GAME_STATE_ACTIONS.SAVE_GAME:
                 // TODO:
@@ -107,7 +110,9 @@ export default new class GameStateStore extends ReduceStore {
                     zone.variables = {};
                 }
 
-                zone.variables[action.params.prop] = this.convertZoneVariable(action.params.value);
+                // Values from actions need to be sanitised, as they are strings.
+                // This is more commonly seen on Scenes.
+                zone.variables[action.params.prop] = Scene.convertValue(action.params.value);
                 s.zone = zone;
 
                 DBService.update('Zone', s.zone.id, s.zone)
@@ -147,19 +152,5 @@ export default new class GameStateStore extends ReduceStore {
         DBService.update('Zone', data.id, {
             ...data,
         });
-    }
-
-    convertZoneVariable(variable) {
-        switch (variable) {
-            case 'true':
-                return true;
-            case 'false':
-                return false;
-            default:
-                if (parseFloat(variable) !== NaN) {
-                    return parseFloat(variable);
-                }
-                return variable;
-        }
     }
 }();

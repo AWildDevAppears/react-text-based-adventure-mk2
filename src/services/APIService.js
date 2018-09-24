@@ -1,18 +1,24 @@
 import { createClient } from 'contentful';
+
+import Zone from '../models/Zone';
+
 import { CONFIG } from '../config';
 
 export default new class APIService {
     client = createClient(CONFIG.api);
 
     getStartingLocation() {
+        let obj = {};
         return this.client
             .getEntry('4psMRGoOhiOeg2QMCGo4wI')
             .then((location) => {
-                return {
-                    zone: '122M4MTkiGYaku8wUAaSWe',
-                    location,
-                };
-            });
+                obj.location = location;
+                return this.client.getEntry('122M4MTkiGYaku8wUAaSWe');
+            })
+            .then((zone) => {
+                obj.zone = new Zone(zone)
+                return obj;
+            })
     }
 
     getZones(options = {}) {

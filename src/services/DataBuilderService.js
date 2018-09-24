@@ -28,6 +28,17 @@ export default new class DataBuilderService {
                         scene.title = sceneObject.fields.title;
                         scene.heading = sceneObject.fields.heading;
 
+                        if (sceneObject.fields.conditions) {
+                            sceneObject.fields.conditions.forEach((condition) => {
+                                const [ operator, operand, value ] = condition.split(' ');
+
+                                scene.conditions[operator] = {
+                                    operand,
+                                    value: Scene.convertValue(value),
+                                };
+                            })
+                        }
+
                         let bodyPromises = sceneObject.fields.body.map((bodyLink) => {
                             return APIService.client.getEntry(bodyLink.sys.id);
                         });
@@ -162,11 +173,7 @@ export default new class DataBuilderService {
                     });
             })
             .then((loc) => {
-                loc = new Location(loc);
-                return loc.getScene()
-                    .then(() => {
-                        return loc;
-                    });
+                return new Location(loc);
             })
     }
 }();

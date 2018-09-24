@@ -52,12 +52,77 @@ export default class Location {
         }
     }
 
-    getScene() {
-        // TODO: Check the zone for any variables, then see if any scenes should take precedence because of those variables.
-        let sceneLink = this.scenes[Math.floor(Math.random() * this.scenes.length)];
-        return DataBuilderService.getScene(sceneLink)
-           .then((scene) => {
-               this.currentScene = scene;
-           });
+    getScene(zone) {
+        return Promise.all(this.scenes.map((scene) => DataBuilderService.getScene(scene)))
+            .then((...scenes) => {
+                let [s] = scenes
+
+                const variableScenes = s.filter((scene) => Object.keys(scene.conditions).length > 0);
+                const cleanScenes = s.filter((scene) => Object.keys(scene.conditions).length === 0);
+
+                if (variableScenes.length > 0) {
+                    variableScenes.forEach((scene) => {
+                        for (let k in zone.variables) {
+                            const val = zone.variables[k];
+                            if (scene.conditions[k]) {
+                                const cond = scene.conditions[k];
+
+                                let isCorrectScene = false;
+
+                                switch (cond.operand) {
+                                    case '==':
+                                        isCorrectScene = cond.value === val;
+                                        break;
+                                    case '!=':
+                                        isCorrectScene = cond.value !== val;
+                                        break;
+                                    case '>':
+                                        isCorrectScene = cond.value > val;
+                                        break;
+                                    case '<':
+                                        isCorrectScene = cond.value < val;
+                                        break;
+                                    case '<=':
+                                        isCorrectScene = cond.value <= val;
+                                        break;
+                                    case '>=':
+                                        isCorrectScene = cond.value >= val;
+                                        break;
+                                    }
+
+                                if (isCorrectScene) {
+                                    this.currentScene = scene;
+                                }
+                            }
+                        }
+                    });
+                    return;
+                }
+
+                const scene = cleanScenes[Math.floor(Math.random() * cleanScenes.length)];
+                this.currentScene = scene;
+
+
+
+                // if (zone.variables) {
+                //     variableScenes.forEach((scene) => {
+                //         const conditions = scene.conditions.split(', ');
+
+                //         conditions.forEach((condition) => {
+                //
+
+                //             if (zone.variables[operator]) {
+                //                 console.log(condition);
+
+                //             }
+                //         });
+                //     });
+
+                //     return;
+                // }
+
+                // const s = cleanScenes[Math.floor(Math.random() * cleanScenes.length)];
+                // this.currentScene = s;
+            });
     }
 }
