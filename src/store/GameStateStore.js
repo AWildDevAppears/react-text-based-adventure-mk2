@@ -64,9 +64,12 @@ export default new class GameStateStore extends ReduceStore {
             case GAME_STATE_ACTIONS.NEW_GAME:
                 APIService.getStartingLocation()
                     .then((res) => {
-                        s.zone = res.zone;
+                        s.zone = { id: res.zone };
+                        console.log(res.zone)
                         s.location = new Location(res.location);
-                        return s.location.getScene();
+
+                        return DBService.update('Zone', s.zone.id, s.zone)
+                            .then(() => s.location.getScene());
                     })
                     .then(() => {
                         Dispatcher.dispatch({
@@ -104,12 +107,11 @@ export default new class GameStateStore extends ReduceStore {
                     zone.variables = {};
                 }
 
-                zone.variables[action.params.prop] = action.params.value;
+                zone.variables[action.params.prop] = this.convertZoneVariable(action.params.value);
                 s.zone = zone;
 
-                // TODO: Store this in the database
-
-                DataBuilderService.getScene(action.params.scene)
+                DBService.update('Zone', s.zone.id, s.zone)
+                    .then(() => DataBuilderService.getScene(action.params.scene))
                     .then((scene) => {
                         loc.currentScene = scene;
                         s.location = loc;
@@ -145,5 +147,19 @@ export default new class GameStateStore extends ReduceStore {
         DBService.update('Zone', data.id, {
             ...data,
         });
+    }
+
+    convertZoneVariable(variable) {
+        switch (variable) {
+            case 'true':
+                return true;
+            case 'false':
+                return false;
+            default:
+                if (parseFloat(variable) !== NaN) {
+                    return parseFloat(variable);
+                }
+                return variable;
+        }
     }
 }();
