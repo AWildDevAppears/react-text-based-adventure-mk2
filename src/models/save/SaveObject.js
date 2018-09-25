@@ -1,6 +1,7 @@
 import DBService from "../../services/DBService";
 
 import CachedObject from "./CachedObject";
+import SaveService from "../../services/SaveService";
 
 export default new class SaveObject {
     id = '';
@@ -8,22 +9,26 @@ export default new class SaveObject {
     lastSaveDate = 0;
     cache = {};
     player = {};
-    location = {};
+    location = '';
+    zone = '';
     zone = '';
 
     load(id) {
-        return DBService.read('Save', id).then((save) => {
+        return SaveService.loadBundle.then((save) => {
             this.id = id;
             this.initialSaveDate = save.initialSaveDate;
             this.lastSaveDate = save.lastSaveDate;
             this.cache = save.cache;
             this.player = save.player;
-        }).then(() => {
+
+            this.location = save.location;
+            this.zone = save.zone;
+
             return CachedObject.replaceCache(this.cache);
         });
     }
 
-    save(id) {
-        return DBService.update('Save', id, this);
+    save() {
+        return SaveService.saveBundle(this);
     }
 }();

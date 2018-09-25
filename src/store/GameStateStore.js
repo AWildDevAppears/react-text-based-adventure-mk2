@@ -10,6 +10,7 @@ import Location from '../models/Location';
 import DBService from '../services/DBService';
 import DataBuilderService from '../services/DataBuilderService';
 import Scene from '../models/Scene';
+import SaveService from '../services/SaveService';
 
 export const GAME_STATE_ACTIONS = {
     SAVE_GAME: 'SAVE_GAME',
@@ -51,6 +52,8 @@ export default new class GameStateStore extends ReduceStore {
 
         return {
             ...SaveObject,
+            zone: {},
+            location: {},
             player,
         }
     }
@@ -95,6 +98,13 @@ export default new class GameStateStore extends ReduceStore {
                     })
                 break;
             case GAME_STATE_ACTIONS.SAVE_GAME:
+                console.log(action);
+                SaveObject.id = 'xxxxxxxxx';
+                SaveObject.player = action.player;
+                SaveObject.location = action.location;
+                SaveObject.zone = action.zone;
+
+                SaveObject.save();
                 // TODO:
                 break;
             case GAME_STATE_ACTIONS.LOAD_GAME:

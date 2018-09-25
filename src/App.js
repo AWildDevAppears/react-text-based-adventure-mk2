@@ -65,6 +65,8 @@ export class App extends Component {
 
                 <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_SETTINGS }>
                     <h1>Options</h1>
+
+                    <button type="button" onClick={this.onSaveButtonPressed}>Save</button>
                 </Modal>
 
                 <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_TRADE_VIEW }>
@@ -100,7 +102,17 @@ export class App extends Component {
         });
     }
 
-    formatDate(date) {
+    onSaveButtonPressed = () => {
+        // TODO: Show a spinner until this completes
+        Dispatcher.dispatch({
+            type: GAME_STATE_ACTIONS.SAVE_GAME,
+            player: this.state.player,
+            location: this.state.location.id,
+            zone: this.state.zone.id,
+        });
+    }
+
+    formatDate = (date) => {
         return new Date(date).toLocaleString({
            year: 'numeric',
            month: 'long',

@@ -1,5 +1,7 @@
 import DBService from "../../services/DBService";
 
+// The cache object is used for storing things like persistent inventories,
+// character relationships, zone variables, etc.
 export default class CachedObject {
     static cleanCache() {
         // Remove entries from cache
@@ -26,6 +28,6 @@ export default class CachedObject {
         this.data = object;
         this.removeAt = date;
 
-        DBService.update('Cache', this.id, this);
+        // DBService.update('Cache', this.id, this);
     }
 }
