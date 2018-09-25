@@ -1,5 +1,6 @@
 import CachedObject from "./CachedObject";
 import SaveService from "../../services/SaveService";
+import CachingService from "../../services/CachingService";
 
 export default new class SaveObject {
     id = '';
@@ -27,6 +28,33 @@ export default new class SaveObject {
     }
 
     save() {
+        this.buildCache();
         return SaveService.saveBundle(this);
+    }
+
+    buildCache() {
+        for (let zone in CachingService.cache.Zone) {
+            let z = new CachedObject();
+            z.id = zone.id;
+            z.type = 'Zone';
+            z.removeAt = -1;
+            z.data = {
+                variables: zone.variables,
+            };
+
+            this.cache[zone.id] = z;
+        }
+
+        for (let container in CachingService.cache.Container) {
+            let c = new CachedObject();
+            c.id = container.id;
+            c.type = 'Container';
+            c.removeAt = container.refills ? 0 : -1; // TODO set to ingame clock
+            c.data = {
+                inventory: container.inventory,
+            };
+
+            this.cache[container.id] = c;
+        }
     }
 }();

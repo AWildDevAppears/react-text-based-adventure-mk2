@@ -104,7 +104,6 @@ export default new class GameStateStore extends ReduceStore {
                 SaveObject.zone = action.zone;
 
                 SaveObject.save();
-                // TODO:
                 break;
             case GAME_STATE_ACTIONS.LOAD_GAME:
                 // TODO:
