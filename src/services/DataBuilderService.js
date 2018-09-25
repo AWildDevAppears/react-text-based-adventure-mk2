@@ -1,4 +1,4 @@
-import DBService from '../services/DBService';
+import CachingService from './CachingService';
 import APIService from '../services/APIService';
 
 import Scene from '../models/Scene';
@@ -12,7 +12,7 @@ import Location from '../models/Location';
 
 export default new class DataBuilderService {
     getScene(id) {
-        return DBService.read('Scene', id)
+        return CachingService.read('Scene', id)
             .then((scene) => {
                 if (!scene) {
                     return Promise.reject();
@@ -65,7 +65,7 @@ export default new class DataBuilderService {
 
                                 // Store the result in our DB so we don't have to do
                                 // this all again.
-                                return DBService.update('Scene', scene.id, scene);
+                                return CachingService.update('Scene', scene.id, scene);
                             })
                             .then(() => {
                                 return scene;
@@ -75,7 +75,7 @@ export default new class DataBuilderService {
     }
 
     getContainer(id) {
-        return DBService.read('Container', id)
+        return CachingService.read('Container', id)
             .then((container) => {
                 if (!container) {
                     return Promise.reject();
@@ -94,7 +94,7 @@ export default new class DataBuilderService {
                         container.possibleItems = containerObject.fields.possibleItems
                             .map((item) => item.sys.id);
 
-                        return DBService.update('Container', id, container);
+                        return CachingService.update('Container', id, container);
                     })
                     .then(() => {
                         return container;
@@ -103,7 +103,7 @@ export default new class DataBuilderService {
     }
 
     getItem(id) {
-        return DBService.read('Item', id)
+        return CachingService.read('Item', id)
             .then((item) => {
                 if (!item) {
                     return Promise.reject();
@@ -155,7 +155,7 @@ export default new class DataBuilderService {
     }
 
     getLocation(id) {
-        return DBService.read('Location', id)
+        return CachingService.read('Location', id)
             .then((location) => {
                 if (!location) {
                     return Promise.reject();
@@ -166,7 +166,7 @@ export default new class DataBuilderService {
                 return APIService.client.getEntry(id)
                     .then((location) => {
                         let loc = new Location(location);
-                        return DBService.update('Location', loc.id, location)
+                        return CachingService.update('Location', loc.id, location)
                             .then(() => {
                                 return location;
                             });

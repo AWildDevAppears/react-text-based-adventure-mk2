@@ -1,4 +1,4 @@
-import DBService from "../../services/DBService";
+import CachingService from "../../services/CachingService";
 
 // The cache object is used for storing things like persistent inventories,
 // character relationships, zone variables, etc.
@@ -27,7 +27,5 @@ export default class CachedObject {
         this.type  = object.type || object.getInstance();
         this.data = object;
         this.removeAt = date;
-
-        // DBService.update('Cache', this.id, this);
     }
 }

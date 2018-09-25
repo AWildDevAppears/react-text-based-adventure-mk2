@@ -1,6 +1,6 @@
 import Inventory from "./Inventory";
 import DataBuilderService from "../services/DataBuilderService";
-import DBService from "../services/DBService";
+import CachingService from "../services/CachingService";
 
 export default class Container {
 
@@ -45,7 +45,7 @@ export default class Container {
 
         return Promise.all(promises)
             .then((items) => this.inventory.putItems(items))
-            .then(() => DBService.update("Container", this.id, this));
+            .then(() => CachingService.update("Container", this.id, this));
     }
 
     tearDown() {

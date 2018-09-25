@@ -7,10 +7,9 @@ import APIService from '../services/APIService';
 import SaveObject from '../models/save/SaveObject';
 import Character from '../models/Character';
 import Location from '../models/Location';
-import DBService from '../services/DBService';
+import CachingService from '../services/CachingService';
 import DataBuilderService from '../services/DataBuilderService';
 import Scene from '../models/Scene';
-import SaveService from '../services/SaveService';
 
 export const GAME_STATE_ACTIONS = {
     SAVE_GAME: 'SAVE_GAME',
@@ -71,7 +70,7 @@ export default new class GameStateStore extends ReduceStore {
                         s.zone = res.zone;
                         s.location = new Location(res.location);
 
-                        return DBService.update('Zone', s.zone.id, s.zone)
+                        return CachingService.update('Zone', s.zone.id, s.zone)
                             .then(() => s.location.getScene(s.zone));
                     })
                     .then(() => {
@@ -125,7 +124,7 @@ export default new class GameStateStore extends ReduceStore {
                 zone.variables[action.params.prop] = Scene.convertValue(action.params.value);
                 s.zone = zone;
 
-                DBService.update('Zone', s.zone.id, s.zone)
+                CachingService.update('Zone', s.zone.id, s.zone)
                     .then(() => DataBuilderService.getScene(action.params.scene))
                     .then((scene) => {
                         loc.currentScene = scene;
@@ -159,7 +158,7 @@ export default new class GameStateStore extends ReduceStore {
     }
 
     updateZone(data) {
-        DBService.update('Zone', data.id, {
+        CachingService.update('Zone', data.id, {
             ...data,
         });
     }
