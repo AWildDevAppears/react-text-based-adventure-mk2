@@ -1,6 +1,8 @@
 import CachedObject from "./CachedObject";
 import SaveService from "../../services/SaveService";
 import CachingService from "../../services/CachingService";
+import Dispatcher from "../../store/Dispatcher";
+import { GAME_STATE_ACTIONS } from "../../store/GameStateStore";
 
 export default new class SaveObject {
     id = '';
@@ -23,7 +25,10 @@ export default new class SaveObject {
             this.location = save.location;
             this.zone = save.zone;
 
-            return CachedObject.replaceCache(this.cache);
+            Dispatcher.dispatch({
+                type: GAME_STATE_ACTIONS.GAME_STATE_UPDATE_ALL,
+                ...this,
+            })
         });
     }
 
