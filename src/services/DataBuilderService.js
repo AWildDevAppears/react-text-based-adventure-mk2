@@ -9,6 +9,7 @@ import WeaponMelee from '../models/WeaponMelee';
 import Item from '../models/abstract/Item';
 import WeaponRanged from '../models/WeaponRanged';
 import Location from '../models/Location';
+import Zone from '../models/Zone';
 
 export default new class DataBuilderService {
     getScene(id) {
@@ -74,6 +75,27 @@ export default new class DataBuilderService {
             });
     }
 
+    getZone(id) {
+        return CachingService.read('Zone', id)
+            .then((zone) => {
+                if (!zone) {
+                    return Promise.reject();
+                }
+
+                return zone;
+            })
+            .catch(() => {
+                let zone;
+                return APIService.client.getEntry(id)
+                    .then((zoneObject) => {
+                        zone = new Zone(zoneObject);
+
+                        return CachingService.update('Zone', id, zone);
+                    })
+                    .then(() => zone);
+            })
+    }
+
     getContainer(id) {
         return CachingService.read('Container', id)
             .then((container) => {
@@ -137,8 +159,9 @@ export default new class DataBuilderService {
                         item.range = itemObject.fields.range;
                         item.ammoType = itemObject.fields.ammoType ? itemObject.fields.ammoType.map((ammoType) => ammoType.sys.id) : undefined;
 
-                        return item;
-                    });
+                        return CachingService.update('Item', id, item);
+                    })
+                    .then(() => item);
             })
             .then((item) => {
                 switch (item.type) {
