@@ -15,7 +15,7 @@ export default new class SaveObject {
     zone = '';
 
     load(id) {
-        return SaveService.loadBundle.then((save) => {
+        return SaveService.loadBundle(id).then((save) => {
             this.id = id;
             this.initialSaveDate = save.initialSaveDate;
             this.lastSaveDate = save.lastSaveDate;

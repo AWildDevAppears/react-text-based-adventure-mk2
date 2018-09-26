@@ -102,7 +102,7 @@ export default new class GameStateStore extends ReduceStore {
 
                 SaveObject.save();
                 break;
-                case GAME_STATE_ACTIONS.LOAD_GAME:
+            case GAME_STATE_ACTIONS.LOAD_GAME:
                 SaveObject.load(action.id);
                 break;
             case GAME_STATE_ACTIONS.GAME_CHANGE_ZONE:
@@ -156,14 +156,24 @@ export default new class GameStateStore extends ReduceStore {
                     })
                     .then((location) => {
                         s.location = location;
+                        s.player = new Character(action.player);
+
+                        return s.location.getScene(s.zone);
                     })
+                    .then(() => {
+                        Dispatcher.dispatch({
+                            type: GAME_STATE_ACTIONS.GAME_STATE_HAS_DATA,
+                            state: s,
+                        });
+                    });
+                    break;
             case GAME_STATE_ACTIONS.GAME_STATE_HAS_DATA:
                 s = action.state;
                 break;
             default:
         }
 
-                return s;
+        return s;
     }
 
     updateZone(data) {

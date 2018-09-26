@@ -62,7 +62,7 @@ export default class Character extends Pawn {
         this.surname = playerObject.surname;
 
         this.equipment = playerObject.equipment;
-        this.inventory = playerObject.inventory; // TODO: This needs to be a real inventory
+        this.inventory = new Inventory(playerObject.inventory); // TODO: This needs to be a real inventory
         this.maxItems = playerObject.maxItems;
 
         this.money = playerObject.money;

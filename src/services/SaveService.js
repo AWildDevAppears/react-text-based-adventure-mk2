@@ -13,7 +13,7 @@ export default new class SaveService {
 
 
     saveBundle(bundle) {
-              return this.dbPromise.then((db) => {
+        return this.dbPromise.then((db) => {
             let tx = db.transaction('Save', 'readwrite');
             tx.objectStore('Save')
                 .put(bundle);
@@ -24,7 +24,7 @@ export default new class SaveService {
 
 
     loadBundle(id) {
-        this.dbPromise.then((db) => {
+        return this.dbPromise.then((db) => {
             return db.transaction('Save')
             .objectStore('Save')
             .get(id);
