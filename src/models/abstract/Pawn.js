@@ -19,4 +19,18 @@ export default class Pawn {
     get damage() {
         return 0;
     }
+
+    constructor(pawnObject) {
+        if (!pawnObject) return;
+
+        this.level = pawnObject.level;
+
+        this.health = pawnObject.health;
+        this.healthMax = pawnObject.healthMax;
+
+        this.stamina = pawnObject.stamina;
+        this.staminaMax = pawnObject.staminaMax;
+
+        this.image = pawnObject.image;
+    }
 }

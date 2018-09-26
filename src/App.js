@@ -67,6 +67,7 @@ export class App extends Component {
                     <h1>Options</h1>
 
                     <button type="button" onClick={this.onSaveButtonPressed}>Save</button>
+                    <button type="button" onClick={this.onLoadButtonPressed}>Load</button>
                 </Modal>
 
                 <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_TRADE_VIEW }>
@@ -109,6 +110,13 @@ export class App extends Component {
             player: this.state.player,
             location: this.state.location.id,
             zone: this.state.zone.id,
+        });
+    }
+
+    onLoadButtonPressed = () => {
+        Dispatcher.dispatch({
+            type: GAME_STATE_ACTIONS.LOAD_GAME,
+            id: 'xxxxxxxxx',
         });
     }
 

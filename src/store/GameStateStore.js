@@ -81,24 +81,20 @@ export default new class GameStateStore extends ReduceStore {
                         });
                     });
                 break;
-            case GAME_STATE_ACTIONS.GAME_STATE_HAS_DATA:
-                s = action.state;
-                break;
             case GAME_STATE_ACTIONS.GAME_CHANGE_LOCATION:
                 DataBuilderService.getLocation(action.id)
-                    .then((loc) => {
-                        s.location = loc;
-                        return s.location.getScene(s.zone);
-                    })
-                    .then(() => {
-                        Dispatcher.dispatch({
-                            type: GAME_STATE_ACTIONS.GAME_STATE_HAS_DATA,
-                            state: s,
-                        });
-                    })
+                .then((loc) => {
+                    s.location = loc;
+                    return s.location.getScene(s.zone);
+                })
+                .then(() => {
+                    Dispatcher.dispatch({
+                        type: GAME_STATE_ACTIONS.GAME_STATE_HAS_DATA,
+                        state: s,
+                    });
+                })
                 break;
             case GAME_STATE_ACTIONS.SAVE_GAME:
-                console.log(action);
                 SaveObject.id = 'xxxxxxxxx';
                 SaveObject.player = action.player;
                 SaveObject.location = action.location;
@@ -106,14 +102,14 @@ export default new class GameStateStore extends ReduceStore {
 
                 SaveObject.save();
                 break;
-            case GAME_STATE_ACTIONS.LOAD_GAME:
-                // TODO:
+                case GAME_STATE_ACTIONS.LOAD_GAME:
+                SaveObject.load(action.id);
                 break;
             case GAME_STATE_ACTIONS.GAME_CHANGE_ZONE:
                 // TODO:
                 break;
             case GAME_STATE_ACTIONS.ZONE_ADD_VARIABLE:
-
+                //TODO:
 
                 if (!zone.variables) {
                     zone.variables = {};
@@ -149,12 +145,25 @@ export default new class GameStateStore extends ReduceStore {
                     });
                 break;
             case GAME_STATE_ACTIONS.TAKE_DAMAGE:
-                // TODO:
+            // TODO:
+            break;
+            case GAME_STATE_ACTIONS.GAME_STATE_UPDATE_ALL:
+                DataBuilderService.getZone(action.zone)
+                    .then((zone) => {
+                        s.zone = zone;
+
+                        return DataBuilderService.getLocation(action.location);
+                    })
+                    .then((location) => {
+                        s.location = location;
+                    })
+            case GAME_STATE_ACTIONS.GAME_STATE_HAS_DATA:
+                s = action.state;
                 break;
             default:
         }
 
-        return s;
+                return s;
     }
 
     updateZone(data) {

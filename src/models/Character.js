@@ -3,7 +3,7 @@ import Inventory from "./Inventory";
 
 export default class Character extends Pawn {
     // name
-    forename = '';
+    forename = ''; // TODO: make this just one name for the player
     surname = '';
 
     equipment = {
@@ -51,5 +51,23 @@ export default class Character extends Pawn {
         } else {
             return 0;
         }
+    }
+
+    constructor(playerObject) {
+        super(playerObject);
+
+        if (!playerObject) return;
+
+        this.forename = playerObject.forename;
+        this.surname = playerObject.surname;
+
+        this.equipment = playerObject.equipment;
+        this.inventory = playerObject.inventory; // TODO: This needs to be a real inventory
+        this.maxItems = playerObject.maxItems;
+
+        this.money = playerObject.money;
+
+        this.stats = playerObject.stats;
+        this.modifiers = playerObject.modifiers;
     }
 }
