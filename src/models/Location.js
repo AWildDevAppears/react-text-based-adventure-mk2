@@ -101,28 +101,6 @@ export default class Location {
 
                 const scene = cleanScenes[Math.floor(Math.random() * cleanScenes.length)];
                 this.currentScene = scene;
-
-
-
-                // if (zone.variables) {
-                //     variableScenes.forEach((scene) => {
-                //         const conditions = scene.conditions.split(', ');
-
-                //         conditions.forEach((condition) => {
-                //
-
-                //             if (zone.variables[operator]) {
-                //                 console.log(condition);
-
-                //             }
-                //         });
-                //     });
-
-                //     return;
-                // }
-
-                // const s = cleanScenes[Math.floor(Math.random() * cleanScenes.length)];
-                // this.currentScene = s;
             });
     }
 }

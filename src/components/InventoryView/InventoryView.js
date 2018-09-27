@@ -56,7 +56,6 @@ export default class InventoryView extends Component {
         }
 
         const item = this.state.currentItem;
-
         let contextButtons = '';
 
         switch (item.type) {

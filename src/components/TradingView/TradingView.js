@@ -26,6 +26,7 @@ export class TradeView extends Component {
             ...TradingStore.getState(),
         };
     }
+
     render() {
         return (
             <div className="trade">
@@ -75,5 +76,4 @@ export class TradeView extends Component {
     }
 }
 
-const tradeView = Container.create(TradeView);
-export default tradeView;
+export default Container.create(TradeView);

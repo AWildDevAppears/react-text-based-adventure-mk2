@@ -28,7 +28,6 @@ export default class Sidebar extends Component {
         return state;
     }
 
-
     render() {
         return (
             <aside className="sidebar">
@@ -41,11 +40,11 @@ export default class Sidebar extends Component {
         switch (this.state.view) {
             case MANAGER_VIEWS.SHOW_INVENTORY:
                 return (
-                    <InventoryView for={ this.props.player }></InventoryView>
+                    <InventoryView for={ this.props.player } />
                 );
             case MANAGER_VIEWS.SHOW_CHARACTER:
                 return (
-                    <Profile for={ this.props.player }/>
+                    <Profile for={ this.props.player } />
                 );
             case MANAGER_VIEWS.SHOW_SETTINGS:
                 return (
@@ -78,9 +77,7 @@ export default class Sidebar extends Component {
                                 onClick={ this.onSettingsButtonPressed }
                             />
                         </div>
-                        <Map
-                            location={ this.props.location }
-                        />
+                        <Map location={ this.props.location } />
                     </Fragment>
                 );
         }

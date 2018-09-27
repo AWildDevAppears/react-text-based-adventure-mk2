@@ -41,16 +41,13 @@ export default class ItemCard extends Component {
         return (
             <div className="item" onClick={ this.props.onClick }>
                 <h4 className="item__name">
-                    { icon }
-                    { this.state.name }
+                    { icon } { this.state.name }
                 </h4>
                 <div className="item__value">
-                    <i className="fas fa-money-bill"></i>
-                    { this.state.value }
+                    <i className="fas fa-money-bill"></i> { this.state.value }
                 </div>
                 <div className="item__weight">
-                    <i className="fas fa-weight-hanging"></i>
-                    { this.state.weight }
+                    <i className="fas fa-weight-hanging"></i> { this.state.weight }
                 </div>
             </div>
         )

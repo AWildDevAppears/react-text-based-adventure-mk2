@@ -8,7 +8,7 @@ export default class Profile extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        state.percentageFull = ((props.now / props.max) * 100) + '%';
+        state.percentageFull = `${((props.now / props.max) * 100)}%`;
         return state;
     }
 

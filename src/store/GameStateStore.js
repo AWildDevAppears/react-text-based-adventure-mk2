@@ -171,14 +171,12 @@ export default new class GameStateStore extends ReduceStore {
             break;
             case GAME_STATE_ACTIONS.PLAYER_DROP_ITEM:
                 let p = action.player;
-
                 p.inventory.removeItems(action.item);
 
                 s.player = p;
             break;
             case GAME_STATE_ACTIONS.PLAYER_EQUIP_ITEM:
                 let p2 = action.player;
-
                 p2.equipItemFromInventory(action.item);
 
                 s.player = p2;

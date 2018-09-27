@@ -13,7 +13,7 @@ export default class Character extends Pawn {
         hands: undefined,
         feet: undefined,
         weapon: undefined,
-    }
+    };
 
     // inventory
     inventory = new Inventory();

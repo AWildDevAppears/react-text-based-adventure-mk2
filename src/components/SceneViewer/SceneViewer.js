@@ -3,7 +3,7 @@ import Dispatcher from '../../store/Dispatcher';
 
 import './scene-viewer.css';
 
-export class SceneViewer extends Component {
+export default class SceneViewer extends Component {
     state = {
         locationName: '',
     }
@@ -55,5 +55,3 @@ export class SceneViewer extends Component {
 
     onSendAction = (action) => Dispatcher.dispatch(action);
 }
-
-export default SceneViewer;

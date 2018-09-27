@@ -3,7 +3,6 @@ import DataBuilderService from "../services/DataBuilderService";
 import CachingService from "../services/CachingService";
 
 export default class Container {
-
     id = "";
     name = "";
     maxItems = 0;

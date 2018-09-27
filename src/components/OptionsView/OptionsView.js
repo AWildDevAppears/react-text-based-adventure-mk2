@@ -12,6 +12,7 @@ export class OptionsView extends Component {
             // ...OptionsStore.getState(),
         };
     }
+
     render() {
         return (
             <div className="options">

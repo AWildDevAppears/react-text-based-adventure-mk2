@@ -4,13 +4,11 @@ export default new class SaveService {
     NAME = 'com.awilddevappears.textBasedAdventure';
     dbPromise;
 
-
     constructor() {
         this.dbPromise = idb.open(this.NAME, 1, upgradeDB => {
             upgradeDB.createObjectStore('Save', { keyPath: 'id' });
         });
     }
-
 
     saveBundle(bundle) {
         return this.dbPromise.then((db) => {
@@ -22,7 +20,6 @@ export default new class SaveService {
         });
     }
 
-
     loadBundle(id) {
         return this.dbPromise.then((db) => {
             return db.transaction('Save')
@@ -30,6 +27,4 @@ export default new class SaveService {
             .get(id);
         })
     }
-
-
 }();
