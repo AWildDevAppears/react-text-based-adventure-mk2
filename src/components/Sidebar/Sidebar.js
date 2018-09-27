@@ -45,7 +45,7 @@ export default class Sidebar extends Component {
                 );
             case MANAGER_VIEWS.SHOW_CHARACTER:
                 return (
-                    <h1>Character</h1>
+                    <Profile for={ this.props.player }/>
                 );
             case MANAGER_VIEWS.SHOW_SETTINGS:
                 return (
@@ -61,8 +61,6 @@ export default class Sidebar extends Component {
             default:
                 return (
                     <Fragment>
-                        <Profile for={ this.props.player }/>
-
                         <div className="button--bar">
                             <FloatingActionButton
                                 icon="user"
