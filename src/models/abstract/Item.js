@@ -3,6 +3,8 @@ export default class Item {
         this.id = item.id;
         this.type = item.type;
 
+        this.description = item.description;
+
         this.name = item.name;
         this.isKeyItem = item.isKeyItem;
         this.value = item.value;

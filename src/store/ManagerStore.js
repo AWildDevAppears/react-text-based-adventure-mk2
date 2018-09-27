@@ -8,6 +8,7 @@ export const MANAGER_VIEWS = {
     SHOW_INVENTORY: 'SHOW_INVENTORY',
     SHOW_SETTINGS: 'SHOW_SETTINGS',
     SHOW_CHARACTER: 'SHOW_CHARACTER',
+    HIDDEN: 'HIDDEN',
 }
 
 export default new class ManagerStore extends ReduceStore {

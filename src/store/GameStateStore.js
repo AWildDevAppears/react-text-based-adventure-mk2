@@ -36,6 +36,8 @@ export const GAME_STATE_ACTIONS = {
     TAKE_DAMAGE: 'actionTakeDamaqe',
         // scene = id
         // damage = number
+    PLAYER_DROP_ITEM: 'PLAYER_DROP_ITEM',
+    PLAYER_EQUIP_ITEM: 'PLAYER_EQUIP_ITEM',
 };
 
 export default new class GameStateStore extends ReduceStore {
@@ -80,7 +82,7 @@ export default new class GameStateStore extends ReduceStore {
                             state: s,
                         });
                     });
-                break;
+            break;
             case GAME_STATE_ACTIONS.GAME_CHANGE_LOCATION:
                 DataBuilderService.getLocation(action.id)
                 .then((loc) => {
@@ -93,7 +95,7 @@ export default new class GameStateStore extends ReduceStore {
                         state: s,
                     });
                 })
-                break;
+            break;
             case GAME_STATE_ACTIONS.SAVE_GAME:
                 SaveObject.id = 'xxxxxxxxx';
                 SaveObject.player = action.player;
@@ -101,13 +103,13 @@ export default new class GameStateStore extends ReduceStore {
                 SaveObject.zone = action.zone;
 
                 SaveObject.save();
-                break;
+            break;
             case GAME_STATE_ACTIONS.LOAD_GAME:
                 SaveObject.load(action.id);
-                break;
+            break;
             case GAME_STATE_ACTIONS.GAME_CHANGE_ZONE:
                 // TODO:
-                break;
+            break;
             case GAME_STATE_ACTIONS.ZONE_ADD_VARIABLE:
                 //TODO:
 
@@ -131,7 +133,7 @@ export default new class GameStateStore extends ReduceStore {
                             state: s,
                         });
                     });
-                break;
+            break;
             case GAME_STATE_ACTIONS.CHANGE_SCENE:
                 DataBuilderService.getScene(action.params.scene)
                     .then((scene) => {
@@ -143,7 +145,7 @@ export default new class GameStateStore extends ReduceStore {
                             state: s,
                         });
                     });
-                break;
+            break;
             case GAME_STATE_ACTIONS.TAKE_DAMAGE:
             // TODO:
             break;
@@ -166,10 +168,24 @@ export default new class GameStateStore extends ReduceStore {
                             state: s,
                         });
                     });
-                    break;
+            break;
+            case GAME_STATE_ACTIONS.PLAYER_DROP_ITEM:
+                let p = action.player;
+
+                p.inventory.removeItems(action.item);
+
+                s.player = p;
+            break;
+            case GAME_STATE_ACTIONS.PLAYER_EQUIP_ITEM:
+                let p2 = action.player;
+
+                p2.equipItemFromInventory(action.item);
+
+                s.player = p2;
+            break;
             case GAME_STATE_ACTIONS.GAME_STATE_HAS_DATA:
                 s = action.state;
-                break;
+            break;
             default:
         }
 

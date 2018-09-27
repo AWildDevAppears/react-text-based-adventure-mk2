@@ -1,9 +1,9 @@
 .sidebar {
     background-color: #ccc;
     border-right: 2px solid #333;
-    display: grid;
+    /* display: grid; */
     margin-top: 125px;
-    grid-template-rows: 1fr 70px 200px;
+    /* grid-template-rows: 1fr 70px 200px; */
     height: calc(100vh - 125px);
 }
 

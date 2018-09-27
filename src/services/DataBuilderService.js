@@ -142,6 +142,7 @@ export default new class DataBuilderService {
 
                         // All items
                         item.name = itemObject.fields.name;
+                        item.description = itemObject.fields.description;
                         item.isKeyItem = itemObject.fields.isKeyItem || false;
                         item.value = itemObject.fields.value;
                         item.weight = itemObject.fields.weight || 0;

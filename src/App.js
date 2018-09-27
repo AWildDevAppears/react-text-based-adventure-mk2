@@ -5,14 +5,13 @@ import Sidebar from './components/Sidebar/Sidebar';
 import SceneViewer from './components/SceneViewer/SceneViewer';
 import Modal from './components/Modal/Modal';
 import TradingView from './components/TradingView/TradingView';
+import StatusBlock from './components/StatusBlock/StatusBlock';
 
 import ManagerStore, { MANAGER_VIEWS } from './store/ManagerStore';
+import GameStateStore, { GAME_STATE_ACTIONS } from './store/GameStateStore';
 import Dispatcher from './store/Dispatcher';
 
 import './css/index.css'
-import GameStateStore, { GAME_STATE_ACTIONS } from './store/GameStateStore';
-import ItemCard from './components/ItemCard/ItemCard';
-import StatusBlock from './components/StatusBlock/StatusBlock';
 
 
 export class App extends Component {
@@ -36,32 +35,19 @@ export class App extends Component {
 
     render() {
         return (
-            <div className="app">
+            <div className="app" className={ this.getMenuStatus() }>
                 <StatusBlock for={ this.state.player }></StatusBlock>
 
                 <Sidebar
                     date={ this.formatDate(this.state.mgr.dateTime) }
                     player={ this.state.player }
                     location={ this.state.location }
-                    moveTo={ this.moveTo }
-                    onInventoryButtonPressed={ this.onInventoryButtonPressed }
-                    onCharacterButtonPressed={ this.onCharacterButtonPressed }
-                    onSettingsButtonPressed={ this.onSettingsButtonPressed }
-
+                    view={ this.state.mgr.view }
                 />
 
                 <SceneViewer
                     location={ this.state.location }
                 />
-
-                <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_INVENTORY }>
-                    <h1>Inventory</h1>
-                    { this.state.player.inventory.getAllItems().map((item, index) => <ItemCard key={index} for={item}></ItemCard>) }
-                </Modal>
-
-                <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_CHARACTER }>
-                    <h1>Character</h1>
-                </Modal>
 
                 <Modal visible={ this.state.mgr.view === MANAGER_VIEWS.SHOW_SETTINGS }>
                     <h1>Options</h1>
@@ -84,24 +70,6 @@ export class App extends Component {
     }
 
     // @Pragma mark - end @Override
-
-    onInventoryButtonPressed = () => {
-        Dispatcher.dispatch({
-            type: MANAGER_VIEWS.SHOW_INVENTORY,
-        });
-    }
-
-    onCharacterButtonPressed = () => {
-        Dispatcher.dispatch({
-            type: MANAGER_VIEWS.SHOW_CHARACTER,
-        });
-    }
-
-    onSettingsButtonPressed = () => {
-        Dispatcher.dispatch({
-            type: MANAGER_VIEWS.SHOW_SETTINGS,
-        });
-    }
 
     onSaveButtonPressed = () => {
         // TODO: Show a spinner until this completes
@@ -126,6 +94,15 @@ export class App extends Component {
            month: 'long',
            day: 'numeric'
         })
+    }
+
+    getMenuStatus = () => {
+        switch (this.state.mgr.view) {
+            case MANAGER_VIEWS.HIDDEN:
+                return '';
+            default:
+                return 'app app--open-left';
+        }
     }
 }
 
